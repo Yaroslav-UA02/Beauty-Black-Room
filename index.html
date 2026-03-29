@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beauty Black Room — Косметика, парфумерія та догляд · Мукачево</title>
+  <meta name="description" content="Beauty Black Room — магазин оригінальної косметики, парфумерії та доглядових засобів у Мукачеві." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+  /* ──────────────────────────────────────────
+     TOKENS
+  ────────────────────────────────────────── */
+  :root {
+    --pink:      #FF4FA3;
+    --pink-h:    #E84393;
+    --pink-l:    #FFC1DA;
+    --bg:        #1F1F1F;
+    --bg-card:   #2a2a2a;
+    --bg-deep:   #141414;
+    --div:       #2A2A2A;
+    --t:         #FFFFFF;
+    --t-muted:   #B0B0B0;
+    --t-faint:   #6b6b6b;
+    --green:     #22C55E;
+
+    --r1: 4px;
+    --r2: 10px;
+    --r3: 16px;
+    --rpill: 100px;
+
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'Inter', system-ui, sans-serif;
+  }
+
+  /* ──────────────────────────────────────────
+     RESET
+  ────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--t);
+    line-height: 1.65;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  img { max-width: 100%; display: block; object-fit: cover; }
+  button, input, textarea, select { font-family: inherit; }
+
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+  .wrap--wide { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+
+  /* ──────────────────────────────────────────
+     ANIMATIONS
+  ────────────────────────────────────────── */
+  @keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+  @keyframes ticker   { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  @keyframes scaleIn  { from{transform:scale(.97);opacity:0} to{transform:scale(1);opacity:1} }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ──────────────────────────────────────────
+     LOGO SVG COMPONENT
+  ────────────────────────────────────────── */
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .logo-circle {
+    width: 36px; height: 36px;
+    flex-shrink: 0;
+  }
+  .logo-text-block {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-name {
+    font-family: var(--font-body);
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--t);
+  }
+  .logo-sub {
+    font-family: var(--font-body);
+    font-size: .62rem;
+    font-weight: 300;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--t-muted);
+    margin-top: 2px;
+  }
+
+  /* ──────────────────────────────────────────
+     NAV
+  ────────────────────────────────────────── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    background: rgba(20,20,20,.82);
+    backdrop-filter: blur(16px) saturate(1.6);
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    transition: background .4s;
+  }
+  .nav.solid { background: rgba(20,20,20,.97); }
+
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 66px;
+  }
+
+  .nav-links {
+    display: flex; gap: 34px;
+  }
+  .nav-links a {
+    font-size: .75rem; font-weight: 400;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--t-muted); transition: color .25s;
+  }
+  .nav-links a:hover { color: var(--t); }
+
+  .nav-ctas { display: flex; gap: 10px; align-items: center; }
+
+  .btn-sm-ig {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+    color: #fff; padding: 8px 18px; border-radius: var(--rpill);
+    font-size: .72rem; font-weight: 500; letter-spacing: .06em;
+    border: none; cursor: pointer;
+    transition: opacity .2s, transform .2s;
+  }
+  .btn-sm-ig:hover { opacity: .85; transform: translateY(-1px); }
+
+  .btn-sm-call {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: transparent; color: var(--t-muted);
+    padding: 8px 18px; border-radius: var(--rpill);
+    font-size: .72rem; font-weight: 400; letter-spacing: .08em;
+    border: 1px solid rgba(255,255,255,.12); cursor: pointer;
+    transition: color .25s, border-color .25s, transform .2s;
+  }
+  .btn-sm-call:hover { color: var(--t); border-color: rgba(255,255,255,.35); transform: translateY(-1px); }
+
+  .ham { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+  .ham span { display:block; width:22px; height:1.5px; background:var(--t); border-radius:2px; transition:.3s; }
+
+  .drawer {
+    position:fixed; inset:0; z-index:850;
+    background:rgba(0,0,0,.7); backdrop-filter:blur(6px);
+    opacity:0; pointer-events:none; transition:opacity .35s;
+  }
+  .drawer.open { opacity:1; pointer-events:all; }
+  .dp {
+    position:absolute; top:0; right:0; bottom:0; width:min(300px,82vw);
+    background:#1a1a1a; padding:80px 32px 32px;
+    display:flex; flex-direction:column; gap:0;
+    transform:translateX(100%); transition:transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .drawer.open .dp { transform:translateX(0); }
+  .dp a {
+    padding:13px 0; font-size:.82rem; font-weight:400;
+    letter-spacing:.1em; text-transform:uppercase;
+    color:var(--t-muted); border-bottom:1px solid rgba(255,255,255,.06);
+    transition:color .2s;
+  }
+  .dp a:last-child { border:none; }
+  .dp a:hover { color:var(--t); }
+
+  /* ──────────────────────────────────────────
+     SECTION SPACING & HEADINGS
+  ────────────────────────────────────────── */
+  section { padding: 110px 0; }
+
+  .s-eyebrow {
+    display: block;
+    font-family: var(--font-body);
+    font-size: .65rem; font-weight: 400;
+    letter-spacing: .25em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 14px;
+  }
+
+  .s-h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 400;
+    letter-spacing: .04em;
+    line-height: 1.25;
+    color: var(--t);
+  }
+  .s-h2 em { font-style: italic; color: var(--pink); }
+
+  .s-p {
+    font-size: .9rem; font-weight: 300;
+    color: var(--t-muted); line-height: 1.8;
+    max-width: 480px; margin-top: 14px;
+  }
+
+  .s-head { text-align: center; margin-bottom: 72px; }
+  .s-head .s-p { margin: 14px auto 0; }
+
+  /* ──────────────────────────────────────────
+     BUTTONS (primary)
+  ────────────────────────────────────────── */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--pink); color: #fff;
+    padding: 13px 28px; border-radius: var(--rpill);
+    font-size: .78rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
+    border: none; cursor: pointer;
+    transition: background .25s, transform .25s, box-shadow .25s;
+  }
+  .btn-primary:hover {
+    background: var(--pink-h);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255,79,163,.3);
+  }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--t);
+    padding: 13px 28px; border-radius: var(--rpill);
+    font-size: .78rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,.2); cursor: pointer;
+    transition: border-color .25s, color .25s, transform .25s;
+  }
+  .btn-outline:hover {
+    border-color: rgba(255,255,255,.55);
+    color: var(--t);
+    transform: translateY(-2px);
+  }
+
+  /* ──────────────────────────────────────────
+     HERO
+  ────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--bg-deep);
+  }
+
+  /* ── HERO AURORA BACKGROUND ── */
+  .hero::before { display: none; }
+
+  .hero-aurora {
+    position: absolute; inset: 0; z-index: 0;
+    background: #07020d;
+    overflow: hidden;
+  }
+
+  /* animated liquid blobs */
+  .h-blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(90px); will-change: transform;
+  }
+  .h-blob-1 {
+    width: 700px; height: 700px;
+    background: radial-gradient(circle at 40% 40%, #FF4FA3 0%, #cc1266 40%, transparent 70%);
+    opacity: .35;
+    top: -180px; left: -160px;
+    animation: blob1 20s ease-in-out infinite;
+  }
+  .h-blob-2 {
+    width: 580px; height: 580px;
+    background: radial-gradient(circle at 50% 50%, #9b1fd4 0%, #5c0fa0 45%, transparent 70%);
+    opacity: .28;
+    top: 10%; right: -120px;
+    animation: blob2 26s ease-in-out infinite;
+  }
+  .h-blob-3 {
+    width: 480px; height: 480px;
+    background: radial-gradient(circle at 60% 60%, #FF4FA3 0%, #e8186a 40%, transparent 70%);
+    opacity: .22;
+    bottom: -100px; left: 25%;
+    animation: blob3 18s ease-in-out infinite;
+  }
+  .h-blob-4 {
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, #ffc1da 0%, #ff4fa3 50%, transparent 70%);
+    opacity: .15;
+    top: 55%; left: 55%;
+    animation: blob4 14s ease-in-out infinite;
+  }
+
+  @keyframes blob1 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    25%     { transform: translate(60px,-80px) scale(1.12); }
+    50%     { transform: translate(120px,40px) scale(.92); }
+    75%     { transform: translate(-40px,80px) scale(1.06); }
+  }
+  @keyframes blob2 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    30%     { transform: translate(-80px,60px) scale(1.1); }
+    60%     { transform: translate(40px,-100px) scale(.88); }
+    80%     { transform: translate(-60px,-40px) scale(1.05); }
+  }
+  @keyframes blob3 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    35%     { transform: translate(-60px,-60px) scale(1.15); }
+    65%     { transform: translate(80px,40px) scale(.9); }
+  }
+  @keyframes blob4 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50%     { transform: translate(-80px,-60px) scale(1.2); }
+  }
+
+  /* noise texture overlay for depth */
+  .hero-aurora::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: .035;
+    pointer-events: none;
+  }
+
+  /* canvas sparkles */
+  #sparkleCanvas {
+    position: absolute; inset: 0; z-index: 1;
+    pointer-events: none;
+    width: 100%; height: 100%;
+  }
+
+  /* text-side dark veil */
+  .hero-veil {
+    position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(
+      105deg,
+      rgba(7,2,13,.88) 0%,
+      rgba(7,2,13,.72) 45%,
+      rgba(7,2,13,.18) 75%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  /* watermark logo */
+  .hero-watermark {
+    position: absolute;
+    left: 50%; bottom: 8%;
+    transform: translateX(-50%);
+    opacity: .04;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* split layout */
+  .hero-split {
+    position: relative; z-index: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    min-height: 100vh;
+    padding: 100px 0 80px;
+    width: 100%;
+  }
+
+  /* left: text */
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: .62rem; font-weight: 400; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--pink-l);
+    border-bottom: 1px solid rgba(255,193,218,.28);
+    padding-bottom: 6px; margin-bottom: 32px; width: fit-content;
+    animation: fadeIn .8s ease both;
+  }
+
+  .hero h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    font-weight: 400;
+    letter-spacing: .02em;
+    line-height: 1.18;
+    color: var(--t);
+    margin-bottom: 20px;
+    animation: fadeUp .8s .1s ease both;
+  }
+  .hero h1 em { font-style: italic; color: var(--pink); }
+
+  .hero p {
+    font-size: .93rem; font-weight: 300;
+    color: var(--t-muted); line-height: 1.8;
+    max-width: 400px; margin-bottom: 40px;
+    animation: fadeUp .8s .22s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    animation: fadeUp .8s .34s ease both;
+  }
+
+  /* right: video */
+  .hero-video-col {
+    position: relative;
+    animation: fadeUp .9s .25s ease both;
+  }
+
+  .hero-video-wrap {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 9/16;
+    max-height: 75vh;
+    background: linear-gradient(160deg, #1a0812 0%, #3d1030 50%, #120609 100%);
+    box-shadow: 0 32px 80px rgba(0,0,0,.65), 0 0 0 1px rgba(255,79,163,.1);
+  }
+
+  /* actual video — замінити src="video/team.mp4" на свій файл */
+  .hero-video-wrap video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  /* placeholder shown when video file not found */
+  .hero-video-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px;
+    background: linear-gradient(160deg,#1a0812 0%,#3d1030 55%,#120609 100%);
+    z-index: 0;
+  }
+  .hero-video-placeholder .vp-icon { font-size: 3rem; opacity: .4; }
+  .hero-video-placeholder p {
+    font-size: .72rem; font-weight: 300; letter-spacing: .18em;
+    text-transform: uppercase; color: rgba(255,255,255,.25);
+    text-align: center; line-height: 1.8; max-width: 200px;
+    margin-bottom: 0;
+  }
+
+  /* pink accent corner */
+  .hero-video-wrap::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+    background: linear-gradient(to top, rgba(0,0,0,.6), transparent);
+    pointer-events: none; z-index: 1;
+  }
+
+  /* video caption */
+  .hero-video-caption {
+    position: absolute; bottom: 20px; left: 20px; right: 20px; z-index: 2;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hvc-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--pink); flex-shrink: 0;
+    box-shadow: 0 0 8px var(--pink);
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+  .hvc-text {
+    font-size: .65rem; font-weight: 300; letter-spacing: .15em;
+    text-transform: uppercase; color: rgba(255,255,255,.55);
+  }
+
+  /* floating badge */
+  .hero-video-badge {
+    position: absolute; top: -14px; right: -14px;
+    background: var(--bg-deep); border: 1px solid rgba(255,79,163,.2);
+    border-radius: 12px; padding: 10px 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    backdrop-filter: blur(8px); z-index: 3;
+    animation: fadeUp .8s .6s ease both;
+  }
+  .hvb-num { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 400; color: var(--pink); line-height: 1; }
+  .hvb-lbl { font-size: .6rem; font-weight: 300; letter-spacing: .15em; text-transform: uppercase; color: var(--t-muted); }
+
+  @keyframes glowPulse {
+    0%,100% { box-shadow: 0 0 6px var(--pink); }
+    50%      { box-shadow: 0 0 16px var(--pink); }
+  }
+
+  /* unmute button */
+  .unmute-btn {
+    position: absolute; top: 16px; right: 16px; z-index: 5;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(20,20,20,.65);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.15);
+    color: #fff; font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .25s, border-color .25s, transform .25s;
+  }
+  .unmute-btn:hover {
+    background: rgba(255,79,163,.35);
+    border-color: rgba(255,79,163,.5);
+    transform: scale(1.1);
+  }
+  .unmute-btn.active {
+    background: rgba(255,79,163,.25);
+    border-color: rgba(255,79,163,.45);
+  }
+
+  .hero-scroll {
+    position: absolute; bottom: 28px; left: 32px;
+    z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px;
+    animation: fadeIn 1s .9s ease both;
+  }
+  .scroll-line {
+    width: 1px; height: 44px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,.2));
+  }
+  .scroll-dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--pink);
+    animation: fadeUp 1.5s .5s ease-in-out infinite alternate;
+  }
+
+  @media(max-width: 900px) {
+    .hero-split {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding-top: 110px;
+    }
+    .hero-video-wrap { max-height: 50vh; aspect-ratio: 16/9; }
+    .hero-video-badge { top: auto; bottom: -14px; right: 16px; }
+  }
+
+  /* ──────────────────────────────────────────
+     BENEFITS
+  ────────────────────────────────────────── */
+  .benefits { background: var(--bg); padding: 100px 0; }
+
+  .bene-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: var(--r2);
+    overflow: hidden;
+  }
+
+  .bene-item {
+    padding: 40px 28px;
+    border-right: 1px solid rgba(255,255,255,.06);
+    transition: background .3s;
+    cursor: default;
+  }
+  .bene-item:last-child { border-right: none; }
+  .bene-item:hover { background: rgba(255,79,163,.04); }
+
+  .bene-ico { font-size: 1.5rem; margin-bottom: 16px; opacity: .85; }
+  .bene-item h3 {
+    font-family: var(--font-heading);
+    font-size: 1rem; font-weight: 400; letter-spacing: .04em;
+    margin-bottom: 8px; line-height: 1.3;
+  }
+  .bene-item p { font-size: .8rem; font-weight: 300; color: var(--t-muted); line-height: 1.65; }
+
+  /* ──────────────────────────────────────────
+     CATEGORIES
+  ────────────────────────────────────────── */
+  .categories { background: var(--bg-deep); }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+
+  .cat-card {
+    position: relative; cursor: pointer;
+    border-radius: var(--r2); overflow: hidden;
+    transition: transform .4s cubic-bezier(.22,1,.36,1);
+  }
+  .cat-card:hover { transform: translateY(-4px); }
+  .cat-card:hover .cat-img-inner { transform: scale(1.06); }
+  .cat-card:hover .cat-label { background: rgba(255,79,163,.75); }
+
+  .cat-img {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    position: relative;
+  }
+  .cat-img-inner {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .5s cubic-bezier(.22,1,.36,1);
+  }
+  /* gradient per category */
+  .ci-a { background: linear-gradient(160deg,#2a0818 0%,#5c1035 55%,#1e0610 100%); }
+  .ci-b { background: linear-gradient(160deg,#120a1e 0%,#2d1555 55%,#0d0614 100%); }
+  .ci-c { background: linear-gradient(160deg,#0e1a10 0%,#1a4020 55%,#0a120c 100%); }
+  .ci-d { background: linear-gradient(160deg,#1a1206 0%,#3d2d10 55%,#120d04 100%); }
+  .ci-e { background: linear-gradient(160deg,#1a0810 0%,#3a1025 55%,#140610 100%); }
+
+  .cat-img-inner::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%);
+    z-index: 0;
+  }
+
+  .cat-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 16px 14px 14px;
+    background: rgba(20,20,20,.7);
+    backdrop-filter: blur(4px);
+    transition: background .3s;
+  }
+  .cat-label span {
+    display: block; font-size: .72rem; font-weight: 400;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--t);
+  }
+
+  /* ──────────────────────────────────────────
+     PRODUCTS FEATURED
+  ────────────────────────────────────────── */
+  .products { background: var(--bg); }
+
+  .products-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    margin-bottom: 80px;
+  }
+  .products-intro-text .s-p { max-width: 380px; }
+
+  .prod-main-img {
+    aspect-ratio: 4/5;
+    border-radius: var(--r3);
+    position: relative; overflow: hidden;
+    background: linear-gradient(145deg,#2a0a18 0%,#5c1540 45%,#1a0812 100%);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 24px 80px rgba(0,0,0,.6);
+  }
+  .prod-main-img .pm-emoji { font-size: 5rem; filter: drop-shadow(0 8px 24px rgba(0,0,0,.8)); }
+  .prod-main-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top,rgba(0,0,0,.4) 0%,transparent 50%);
+  }
+  .prod-main-img .prod-tag {
+    position: absolute; bottom: 20px; left: 20px; right: 20px;
+    z-index: 2;
+    font-size: .68rem; font-weight: 400; letter-spacing: .15em;
+    text-transform: uppercase; color: rgba(255,255,255,.6);
+  }
+
+  .prod-small-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .prod-sm-card {
+    border-radius: var(--r2); overflow: hidden; position: relative;
+    cursor: pointer;
+    transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s;
+  }
+  .prod-sm-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.5); }
+  .prod-sm-card:hover .psci { transform: scale(1.05); }
+
+  .psci {
+    aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .5s cubic-bezier(.22,1,.36,1);
+    position: relative; overflow: hidden;
+  }
+  .psci .psi { font-size: 2.5rem; position: relative; z-index: 1; filter: drop-shadow(0 4px 12px rgba(0,0,0,.7)); }
+  .psci::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 55%); }
+  .ps-a { background: linear-gradient(145deg,#0a0a14 0%,#1a1a32 55%,#0d0d20 100%); }
+  .ps-b { background: linear-gradient(145deg,#1a1000 0%,#3d2500 55%,#281900 100%); }
+  .ps-c { background: linear-gradient(145deg,#001414 0%,#003030 55%,#002020 100%); }
+  .ps-d { background: linear-gradient(145deg,#14000a 0%,#300018 55%,#1e0010 100%); }
+
+  .psc-info {
+    background: var(--bg-card); padding: 14px 16px;
+  }
+  .psc-brand { font-size: .65rem; font-weight: 400; letter-spacing: .15em; text-transform: uppercase; color: var(--pink); margin-bottom: 3px; }
+  .psc-name  { font-size: .85rem; font-weight: 300; color: var(--t); }
+
+  /* ──────────────────────────────────────────
+     BRANDS TICKER
+  ────────────────────────────────────────── */
+  .brands {
+    background: var(--bg); padding: 52px 0;
+    border-top: 1px solid rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(255,255,255,.04);
+  }
+  .brands-ttl {
+    text-align: center; font-size: .6rem; font-weight: 400;
+    letter-spacing: .3em; text-transform: uppercase; color: var(--t-faint);
+    margin-bottom: 32px;
+  }
+  .tick-wrap { overflow: hidden; position: relative; }
+  .tick-wrap::before, .tick-wrap::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
+  }
+  .tick-wrap::before { left:0;  background:linear-gradient(90deg, var(--bg),transparent); }
+  .tick-wrap::after  { right:0; background:linear-gradient(270deg,var(--bg),transparent); }
+  .tick-row {
+    display: flex; gap: 60px; width: max-content;
+    animation: ticker 28s linear infinite;
+  }
+  .tick-wrap:hover .tick-row { animation-play-state: paused; }
+  .brand-name {
+    font-size: .72rem; font-weight: 300; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--t-faint); opacity: .5; white-space: nowrap;
+    transition: opacity .3s, color .3s, letter-spacing .3s; cursor: default;
+  }
+  .brand-name:hover { opacity: 1; color: var(--t); letter-spacing: .25em; }
+
+  /* ──────────────────────────────────────────
+     GALLERY
+  ────────────────────────────────────────── */
+  .gallery { background: var(--bg-deep); }
+
+  .gallery-grid {
+    columns: 3;
+    column-gap: 12px;
+  }
+
+  .g-item {
+    break-inside: avoid;
+    position: relative; overflow: hidden;
+    border-radius: var(--r2);
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: transform .45s cubic-bezier(.22,1,.36,1);
+  }
+  .g-item:hover { transform: scale(1.02); z-index: 2; }
+  .g-item:hover .gi-overlay { opacity: 1; }
+
+  .gi-photo {
+    width: 100%; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .gi-photo .gi-ico { font-size: 2.8rem; position: relative; z-index: 1; filter: drop-shadow(0 4px 16px rgba(0,0,0,.8)); }
+  .gi-photo::after  { content: ''; position: absolute; inset: 0; background: linear-gradient(to top,rgba(0,0,0,.45) 0%,transparent 60%); }
+
+  /* heights vary for masonry effect */
+  .g-item:nth-child(1)  .gi-photo { height:260px; }
+  .g-item:nth-child(2)  .gi-photo { height:200px; }
+  .g-item:nth-child(3)  .gi-photo { height:220px; }
+  .g-item:nth-child(4)  .gi-photo { height:180px; }
+  .g-item:nth-child(5)  .gi-photo { height:260px; }
+  .g-item:nth-child(6)  .gi-photo { height:200px; }
+  .g-item:nth-child(7)  .gi-photo { height:220px; }
+  .g-item:nth-child(8)  .gi-photo { height:180px; }
+  .g-item:nth-child(9)  .gi-photo { height:240px; }
+
+  .gp-1  { background: linear-gradient(145deg,#1a0312 0%,#4d0c38 50%,#120209 100%); }
+  .gp-2  { background: linear-gradient(145deg,#0a0a18 0%,#1e1e4a 50%,#080812 100%); }
+  .gp-3  { background: linear-gradient(145deg,#1a0810 0%,#3d1025 50%,#100610 100%); }
+  .gp-4  { background: linear-gradient(145deg,#181006 0%,#3d2a12 50%,#100c04 100%); }
+  .gp-5  { background: linear-gradient(145deg,#0a001a 0%,#200040 50%,#080010 100%); }
+  .gp-6  { background: linear-gradient(145deg,#001a0c 0%,#003d1c 50%,#00100a 100%); }
+  .gp-7  { background: linear-gradient(145deg,#1a0606 0%,#3d1212 50%,#100404 100%); }
+  .gp-8  { background: linear-gradient(145deg,#0a1018 0%,#18253a 50%,#060c12 100%); }
+  .gp-9  { background: linear-gradient(145deg,#140010 0%,#300028 50%,#0e000c 100%); }
+
+  .gi-label {
+    position: absolute; bottom: 12px; left: 14px; z-index: 3;
+    font-size: .65rem; font-weight: 400; letter-spacing: .12em;
+    text-transform: uppercase; color: rgba(255,255,255,.55);
+  }
+  .gi-overlay {
+    position: absolute; inset: 0; z-index: 2;
+    background: rgba(255,79,163,.08);
+    opacity: 0; transition: opacity .35s;
+  }
+
+  /* ──────────────────────────────────────────
+     INSTAGRAM
+  ────────────────────────────────────────── */
+  .insta { background: var(--bg); }
+
+  .insta-top {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 48px; flex-wrap: wrap; gap: 20px;
+  }
+  .insta-lead { font-size: .85rem; font-weight: 300; color: var(--t-muted); line-height: 1.8; max-width: 420px; margin-top: 12px; }
+
+  .reels-grid {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 10px;
+    margin-bottom: 48px;
+  }
+
+  .reel {
+    aspect-ratio: 9/16; border-radius: var(--r2);
+    position: relative; overflow: hidden; cursor: pointer;
+    transition: transform .4s cubic-bezier(.22,1,.36,1);
+  }
+  .reel:hover { transform: scale(1.03); }
+  .reel:hover .reel-ov { opacity: 1; }
+
+  .reel-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* reel-bg uses background-image inline styles on each card */
+
+  .reel-ov {
+    position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.15) 60%,transparent 100%);
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 18px;
+    opacity: .65; transition: opacity .35s;
+  }
+  .reel-play {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,.12); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .85rem; margin-bottom: 10px;
+  }
+  .reel-t { font-size: .8rem; font-weight: 300; line-height: 1.45; }
+  .reel-tag { font-size: .65rem; color: var(--pink-l); letter-spacing: .08em; margin-top: 4px; }
+
+  .insta-footer { text-align: center; }
+
+  /* ──────────────────────────────────────────
+     CTA
+  ────────────────────────────────────────── */
+  .cta-sec { background: var(--bg-deep); }
+
+  .cta-box {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: var(--r3); overflow: hidden;
+  }
+
+  .cta-l {
+    padding: 72px 56px;
+    background:
+      radial-gradient(ellipse 80% 80% at 20% 50%, rgba(255,79,163,.06) 0%, transparent 70%),
+      #1a1a1a;
+    display: flex; flex-direction: column; justify-content: center; gap: 28px;
+  }
+  .cta-l h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem,3vw,3rem);
+    font-weight: 400; letter-spacing: .03em; line-height: 1.2;
+  }
+  .cta-l h2 em { font-style: italic; color: var(--pink); }
+  .cta-l p { font-size: .88rem; font-weight: 300; color: var(--t-muted); line-height: 1.8; max-width: 360px; }
+
+  .cta-contacts { display: flex; flex-direction: column; gap: 14px; }
+  .cta-link {
+    display: flex; align-items: center; gap: 12px;
+    font-size: .82rem; font-weight: 300; color: var(--t-muted);
+    transition: color .25s;
+  }
+  .cta-link:hover { color: var(--t); }
+  .cta-link-ico {
+    width: 34px; height: 34px; border-radius: var(--r1);
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .9rem; flex-shrink: 0;
+  }
+
+  .cta-cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .cta-r {
+    padding: 56px 52px;
+    background: #1f1f1f;
+    border-left: 1px solid rgba(255,255,255,.06);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .cta-r h3 {
+    font-family: var(--font-heading);
+    font-size: 1.35rem; font-weight: 400; letter-spacing: .04em;
+    margin-bottom: 5px;
+  }
+  .cta-r .form-note { font-size: .75rem; font-weight: 300; color: var(--t-muted); margin-bottom: 28px; }
+
+  .fg { margin-bottom: 12px; }
+  .fg label { display: block; font-size: .65rem; font-weight: 400; letter-spacing: .15em; text-transform: uppercase; color: var(--t-faint); margin-bottom: 7px; }
+  .fc {
+    width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    color: var(--t); padding: 11px 14px; border-radius: var(--r1);
+    font-size: .85rem; font-weight: 300; outline: none; resize: none;
+    transition: border-color .25s, background .25s;
+  }
+  .fc::placeholder { color: rgba(255,255,255,.2); }
+  .fc:focus { border-color: rgba(255,79,163,.5); background: rgba(255,79,163,.03); }
+  .fc.err { border-color: rgba(255,79,163,.6); }
+
+  .btn-form {
+    width: 100%; padding: 13px; background: var(--pink); color: #fff;
+    border: none; border-radius: var(--rpill);
+    font-size: .75rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase;
+    cursor: pointer; transition: background .25s, transform .25s;
+    margin-top: 6px;
+  }
+  .btn-form:hover { background: var(--pink-h); transform: translateY(-2px); }
+  .btn-form:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+  .form-ok {
+    display: none; text-align: center; padding: 24px 0;
+  }
+  .ok-ico { font-size: 2.5rem; margin-bottom: 12px; }
+  .form-ok h4 { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 400; margin-bottom: 8px; }
+  .form-ok p  { font-size: .82rem; font-weight: 300; color: var(--t-muted); line-height: 1.7; }
+
+  /* ──────────────────────────────────────────
+     CONTACTS
+  ────────────────────────────────────────── */
+  .contacts { background: var(--bg); }
+
+  .contacts-wrap {
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: start;
+  }
+
+  .ci-list { display: flex; flex-direction: column; gap: 0; }
+  .ci-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    transition: background .2s;
+  }
+  .ci-item:first-child { padding-top: 0; }
+  .ci-ico { font-size: 1rem; margin-top: 2px; width: 20px; text-align: center; flex-shrink: 0; opacity: .7; }
+  .ci-lbl { font-size: .62rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: var(--t-faint); margin-bottom: 4px; }
+  .ci-val { font-size: .88rem; font-weight: 300; color: var(--t); }
+  .ci-val a { transition: color .2s; }
+  .ci-val a:hover { color: var(--pink); }
+
+  .ci-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 36px; }
+
+  .btn-green {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--green); color: #fff;
+    padding: 12px 24px; border-radius: var(--rpill);
+    font-size: .75rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
+    border: none; cursor: pointer;
+    transition: opacity .25s, transform .25s;
+  }
+  .btn-green:hover { opacity: .88; transform: translateY(-2px); }
+
+  .map-box { border-radius: var(--r3); overflow: hidden; height: 420px; border: 1px solid rgba(255,255,255,.06); }
+  .map-box iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  /* ──────────────────────────────────────────
+     FOOTER
+  ────────────────────────────────────────── */
+  footer {
+    background: var(--bg-deep);
+    border-top: 1px solid rgba(255,255,255,.05);
+    padding: 64px 0 28px;
+  }
+
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 56px;
+    margin-bottom: 56px;
+  }
+
+  .fb-desc { font-size: .82rem; font-weight: 300; color: var(--t-muted); line-height: 1.8; margin: 16px 0 24px; max-width: 260px; }
+
+  .f-socials { display: flex; gap: 10px; }
+  .fsoc {
+    width: 36px; height: 36px; border-radius: var(--r1);
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+    display: flex; align-items: center; justify-content: center; font-size: .85rem;
+    transition: background .25s, border-color .25s, transform .25s;
+  }
+  .fsoc:hover { background: rgba(255,79,163,.12); border-color: rgba(255,79,163,.3); transform: translateY(-3px); }
+
+  .fc-col h4 {
+    font-size: .62rem; font-weight: 400; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--t-faint); margin-bottom: 20px;
+  }
+  .fc-col ul li { margin-bottom: 12px; }
+  .fc-col ul li a { font-size: .82rem; font-weight: 300; color: var(--t-muted); transition: color .25s; }
+  .fc-col ul li a:hover { color: var(--t); }
+
+  .foot-bar {
+    border-top: 1px solid rgba(255,255,255,.05); padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px; flex-wrap: wrap;
+  }
+  .foot-bar p { font-size: .72rem; font-weight: 300; color: var(--t-faint); }
+  .foot-bar a { color: var(--pink); }
+  .foot-policies { display: flex; gap: 20px; }
+  .foot-policies a { font-size: .72rem; font-weight: 300; color: var(--t-faint); transition: color .25s; }
+  .foot-policies a:hover { color: var(--t-muted); }
+
+  /* scroll top */
+  #toTop {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 42px; height: 42px; background: rgba(255,79,163,.8);
+    color: #fff; border: none; border-radius: 50%; font-size: 1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(6px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s, transform .3s, background .25s; z-index: 400;
+  }
+  #toTop.show { opacity: 1; pointer-events: all; }
+  #toTop:hover { background: var(--pink-h); transform: translateY(-3px); }
+
+  /* ──────────────────────────────────────────
+     RESPONSIVE
+  ────────────────────────────────────────── */
+  @media(max-width:1100px) {
+    .bene-row     { grid-template-columns: repeat(3,1fr); }
+    .bene-item:nth-child(n+4) { border-top: 1px solid rgba(255,255,255,.06); }
+    .bene-item:nth-child(3n) { border-right: none; }
+    .cat-grid     { grid-template-columns: repeat(3,1fr); }
+    .products-intro { grid-template-columns: 1fr; gap: 48px; }
+    .prod-main-img { max-width: 340px; }
+    .cta-box      { grid-template-columns: 1fr; }
+    .cta-r        { border-left: none; border-top: 1px solid rgba(255,255,255,.06); padding: 48px 48px; }
+    .contacts-wrap { grid-template-columns: 1fr; }
+    .footer-top   { grid-template-columns: 1fr 1fr; gap: 36px; }
+  }
+
+  @media(max-width:768px) {
+    section { padding: 72px 0; }
+    .nav-links, .nav-ctas { display: none; }
+    .ham { display: flex; }
+    .bene-row { grid-template-columns: 1fr 1fr; }
+    .bene-item:nth-child(2n) { border-right: none; }
+    .cat-grid { grid-template-columns: repeat(2,1fr); }
+    .gallery-grid { columns: 2; }
+    .reels-grid { grid-template-columns: repeat(2,1fr); }
+    .cta-l { padding: 48px 32px; }
+    .cta-r { padding: 36px 32px; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    .hero-scroll { display: none; }
+  }
+
+  @media(max-width:480px) {
+    .bene-row { grid-template-columns: 1fr; }
+    .bene-item { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .cat-grid { grid-template-columns: 1fr; }
+    .gallery-grid { columns: 1; }
+    .reels-grid { grid-template-columns: 1fr 1fr; }
+    .prod-small-grid { grid-template-columns: 1fr; }
+    .foot-bar { flex-direction: column; text-align: center; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ──────────────────────────────────────────
+     NAV
+────────────────────────────────────────── -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+
+    <!-- Logo -->
+    <a href="#" class="logo-mark">
+      <svg class="logo-circle" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="17" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <circle cx="18" cy="18" r="17" stroke="url(#lg)" stroke-width="1"/>
+        <text x="18" y="20" text-anchor="middle"
+              font-family="'Cormorant Garamond', serif" font-size="9" font-weight="400"
+              fill="white" letter-spacing="0.5">BR</text>
+        <defs>
+          <linearGradient id="lg" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FF4FA3" stop-opacity=".6"/>
+            <stop offset="1" stop-color="#FF4FA3" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="logo-text-block">
+        <span class="logo-name">Beauty Black Room</span>
+        <span class="logo-sub">Мукачево</span>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#benefits">Переваги</a>
+      <a href="#categories">Асортимент</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#insta">Instagram</a>
+      <a href="#contacts">Контакти</a>
+    </nav>
+
+    <div class="nav-ctas">
+      <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+         target="_blank" rel="noopener" class="btn-sm-ig">📸 Instagram</a>
+      <a href="tel:+380501112233" class="btn-sm-call">📞 Подзвонити</a>
+    </div>
+
+    <div class="ham" id="ham"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div class="drawer" id="drawer">
+  <div class="dp">
+    <a href="#benefits"   class="dl">Переваги</a>
+    <a href="#categories" class="dl">Асортимент</a>
+    <a href="#gallery"    class="dl">Галерея</a>
+    <a href="#insta"      class="dl">Instagram</a>
+    <a href="#contacts"   class="dl">Контакти</a>
+    <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+       target="_blank" rel="noopener" class="dl" style="color:var(--pink)">📸 Відкрити Instagram</a>
+    <a href="tel:+380501112233" class="dl">📞 +380 50 111 22 33</a>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────
+     HERO
+────────────────────────────────────────── -->
+<section class="hero" id="home">
+
+  <!-- aurora background -->
+  <div class="hero-aurora">
+    <div class="h-blob h-blob-1"></div>
+    <div class="h-blob h-blob-2"></div>
+    <div class="h-blob h-blob-3"></div>
+    <div class="h-blob h-blob-4"></div>
+    <canvas id="sparkleCanvas"></canvas>
+  </div>
+  <div class="hero-veil"></div>
+
+  <!-- watermark logo -->
+  <div class="hero-watermark">
+    <svg width="320" height="320" viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="17" stroke="white" stroke-width=".6"/>
+      <text x="18" y="20" text-anchor="middle"
+            font-family="'Cormorant Garamond',serif" font-size="9" font-weight="400"
+            fill="white" letter-spacing=".5">BR</text>
+    </svg>
+  </div>
+
+  <div class="wrap">
+    <div class="hero-split">
+
+      <!-- LEFT: text -->
+      <div class="hero-content">
+        <span class="hero-tag">Магазин · Мукачево</span>
+        <h1>Оригінальна косметика<br>та парфуми в <em>Мукачеві</em></h1>
+        <p>Трендові засоби, перевірена якість і простір,<br>де ти знайдеш своє.</p>
+        <div class="hero-btns">
+          <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+             target="_blank" rel="noopener" class="btn-primary">
+            📸 Перейти в Instagram
+          </a>
+          <a href="tel:+380501112233" class="btn-outline">📞 Подзвонити</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: team video -->
+      <!-- ╔═══════════════════════════════════════════════════════╗
+           ║  ЯК ДОДАТИ ВІДЕО:                                     ║
+           ║  1. Помісти файл відео у папку: my-site/video/        ║
+           ║  2. Назви файл: team.mp4                               ║
+           ║  3. Або заміни src нижче на свій шлях                  ║
+           ╚═══════════════════════════════════════════════════════╝ -->
+      <div class="hero-video-col">
+        <div class="hero-video-wrap">
+
+          <video
+            id="heroVideo"
+            autoplay muted loop playsinline
+            src="video/team.mp4">
+          </video>
+
+          <!-- fallback -->
+          <div class="hero-video-placeholder" id="heroPlaceholder" style="display:none;">
+            <span class="vp-icon">🎬</span>
+            <p>Beauty Black Room</p>
+          </div>
+
+          <!-- unmute button -->
+          <button class="unmute-btn" id="unmuteBtn" aria-label="Увімкнути звук" title="Увімкнути звук">
+            <span class="unmute-ico" id="unmuteIco">🔇</span>
+          </button>
+
+          <!-- caption -->
+          <div class="hero-video-caption">
+            <span class="hvc-dot"></span>
+            <span class="hvc-text">Команда магазину · Мукачево</span>
+          </div>
+        </div>
+
+        <!-- floating stat badge -->
+        <div class="hero-video-badge">
+          <span class="hvb-num">500+</span>
+          <span class="hvb-lbl">покупців</span>
+        </div>
+      </div>
+
+    </div><!-- /hero-split -->
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-dot"></div>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────
+     BENEFITS
+────────────────────────────────────────── -->
+<section class="benefits" id="benefits">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="s-eyebrow">Чому обирають нас</span>
+      <h2 class="s-h2">Переваги Beauty Black Room</h2>
+    </div>
+    <div class="bene-row">
+      <div class="bene-item reveal">
+        <div class="bene-ico">✦</div>
+        <h3>Оригінальна продукція</h3>
+        <p>Тільки сертифіковані оригінали. Без підробок, без ризику.</p>
+      </div>
+      <div class="bene-item reveal">
+        <div class="bene-ico">◈</div>
+        <h3>Трендові новинки</h3>
+        <p>Регулярне поповнення — найактуальніші beauty-хіти сезону.</p>
+      </div>
+      <div class="bene-item reveal">
+        <div class="bene-ico">◇</div>
+        <h3>Великий вибір</h3>
+        <p>Понад 150 позицій: косметика, парфуми, догляд в одному місці.</p>
+      </div>
+      <div class="bene-item reveal">
+        <div class="bene-ico">◉</div>
+        <h3>Швидкий підбір</h3>
+        <p>Допоможемо обрати під тип шкіри, настрій та бюджет.</p>
+      </div>
+      <div class="bene-item reveal">
+        <div class="bene-ico">❋</div>
+        <h3>Стильний простір</h3>
+        <p>Шоурум у центрі Мукачева — заходь, щоб відчути атмосферу.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────
+     CATEGORIES
+────────────────────────────────────────── -->
+<section class="categories" id="categories">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="s-eyebrow">Асортимент</span>
+      <h2 class="s-h2">Категорії товарів</h2>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal">
+        <div class="cat-img">
+          <div class="cat-img-inner" style="background-image:url('images/needly.jpg');background-size:cover;background-position:center;"></div>
+        </div>
+        <div class="cat-label"><span>Косметика</span></div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-img">
+          <div class="cat-img-inner" style="background-image:url('images/sol1.jpg');background-size:cover;background-position:center;"></div>
+        </div>
+        <div class="cat-label"><span>Парфуми</span></div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-img">
+          <div class="cat-img-inner" style="background-image:url('images/medicube.jpg');background-size:cover;background-position:center;"></div>
+        </div>
+        <div class="cat-label"><span>Догляд</span></div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-img">
+          <div class="cat-img-inner" style="background-image:url('images/bjornaxen.jpg');background-size:cover;background-position:center;"></div>
+        </div>
+        <div class="cat-label"><span>Волосся</span></div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-img">
+          <div class="cat-img-inner" style="background-image:url('images/marvis.jpg');background-size:cover;background-position:center;"></div>
+        </div>
+        <div class="cat-label"><span>Подарунки</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────
+     PRODUCTS
+────────────────────────────────────────── -->
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="products-intro">
+      <div class="products-intro-text reveal">
+        <span class="s-eyebrow">Вибрані позиції</span>
+        <h2 class="s-h2">Продукти,<br>які <em>обирають</em></h2>
+        <p class="s-p">Ми відбираємо тільки те, що дійсно працює. В асортименті — перевірені бренди та нові відкриття beauty-сезону.</p>
+      </div>
+      <div class="prod-main-img reveal" style="background:none;">
+        <img src="images/arcell.jpg" alt="Arocell Super Collagen Wrapping Mask"
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--r3);" />
+        <span class="prod-tag">Arocell · Super Collagen Wrapping Mask</span>
+      </div>
+    </div>
+
+    <div class="prod-small-grid reveal">
+      <div class="prod-sm-card">
+        <div class="psci" style="background-image:url('images/janzen.jpg');background-size:cover;background-position:center;"></div>
+        <div class="psc-info">
+          <div class="psc-brand">Janzen</div>
+          <div class="psc-name">Heavanly · Shower Foam</div>
+        </div>
+      </div>
+      <div class="prod-sm-card">
+        <div class="psci" style="background-image:url('images/neqi.jpg');background-size:cover;background-position:center;"></div>
+        <div class="psc-info">
+          <div class="psc-brand">Neqi</div>
+          <div class="psc-name">Золота серія догляду за волоссям</div>
+        </div>
+      </div>
+      <div class="prod-sm-card">
+        <div class="psci" style="background-image:url('images/mais.jpg');background-size:cover;background-position:center;"></div>
+        <div class="psc-info">
+          <div class="psc-brand">Mais Laboratory</div>
+          <div class="psc-name">Volume Up · Shampoo & Mask</div>
+        </div>
+      </div>
+      <div class="prod-sm-card">
+        <div class="psci" style="background-image:url('images/gel.jpg');background-size:cover;background-position:center;"></div>
+        <div class="psc-info">
+          <div class="psc-brand">Sister's Aroma</div>
+          <div class="psc-name">Smart Shower Gel · Raspberry Wood</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────
+     BRANDS TICKER
+────────────────────────────────────────── -->
+<div class="brands">
+  <div class="brands-ttl">В магазині представлені</div>
+  <div class="tick-wrap">
+    <div class="tick-row">
+      <span class="brand-name">MAC</span>
+      <span class="brand-name">Lancome</span>
+      <span class="brand-name">Dior Beauty</span>
+      <span class="brand-name">Janzen</span>
+      <span class="brand-name">Charlotte Tilbury</span>
+      <span class="brand-name">Neqi</span>
+      <span class="brand-name">La Roche-Posay</span>
+      <span class="brand-name">Arcell</span>
+      <span class="brand-name">NARS</span>
+      <span class="brand-name">Shiseido</span>
+      <span class="brand-name">Kérastase</span>
+      <span class="brand-name">Mais</span>
+      <!-- duplicate -->
+      <span class="brand-name">MAC</span>
+      <span class="brand-name">Lancome</span>
+      <span class="brand-name">Dior Beauty</span>
+      <span class="brand-name">Janzen</span>
+      <span class="brand-name">Charlotte Tilbury</span>
+      <span class="brand-name">Neqi</span>
+      <span class="brand-name">La Roche-Posay</span>
+      <span class="brand-name">Arcell</span>
+      <span class="brand-name">NARS</span>
+      <span class="brand-name">Shiseido</span>
+      <span class="brand-name">Kérastase</span>
+      <span class="brand-name">Mais</span>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────
+     GALLERY
+────────────────────────────────────────── -->
+<section class="gallery" id="gallery">
+  <div class="wrap--wide">
+    <div class="s-head reveal">
+      <span class="s-eyebrow">Галерея</span>
+      <h2 class="s-h2">Атмосфера магазину</h2>
+      <p class="s-p">Стиль, упаковка, деталі — те, що робить покупку справжнім задоволенням.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="g-item reveal">
+        <div class="gi-photo" style="background-image:url('images/arcell.jpg');background-size:cover;background-position:center;"></div>
+        <div class="gi-label">Arocell · Collagen Mask</div>
+        <div class="gi-overlay"></div>
+      </div>
+      <div class="g-item reveal">
+        <div class="gi-photo" style="background-image:url('images/janzen.jpg');background-size:cover;background-position:center;"></div>
+        <div class="gi-label">Janzen · Shower Foam</div>
+        <div class="gi-overlay"></div>
+      </div>
+      <div class="g-item reveal">
+        <div class="gi-photo" style="background-image:url('images/gel.jpg');background-size:cover;background-position:center;"></div>
+        <div class="gi-label">Sister's Aroma · Raspberry</div>
+        <div class="gi-overlay"></div>
+      </div>
+      <div class="g-item reveal">
+        <div class="gi-photo" style="background-image:url('images/neqi.jpg');background-size:cover;background-position:center;"></div>
+        <div class="gi-label">Neqi · Gold Collection</div>
+        <div class="gi-overlay"></div>
+      </div>
+      <div class="g-item reveal">
+        <div class="gi-photo" style="background-image:url('images/mais.jpg');background-size:cover;background-position:center;"></div>
+        <div class="gi-label">Mais Laboratory</div>
+        <div class="gi-overlay"></div>
+      </div>
+      <div class="g-item reveal">
+        <div class="gi-photo" style="background-image:url('images/ratedgreen.jpg');background-size:cover;background-position:center;"></div>
+        <div class="gi-label">Rated Green · Shampoo</div>
+        <div class="gi-overlay"></div>
+      </div>
+      <div class="g-item reveal">
+        <div class="gi-photo" style="background-image:url('images/sol1.jpg');background-size:cover;background-position:center;"></div>
+        <div class="gi-label">Sol de Janeiro · Glow Oil</div>
+        <div class="gi-overlay"></div>
+      </div>
+      <div class="g-item reveal">
+        <div class="gi-photo" style="background-image:url('images/sol2.jpg');background-size:cover;background-position:center;"></div>
+        <div class="gi-label">Sol de Janeiro · Rio Sunset</div>
+        <div class="gi-overlay"></div>
+      </div>
+      <div class="g-item reveal">
+        <div class="gi-photo" style="background-image:url('images/drceuracle.jpg');background-size:cover;background-position:center;"></div>
+        <div class="gi-label">Dr.Ceuracle · Tea Essence</div>
+        <div class="gi-overlay"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────
+     INSTAGRAM
+────────────────────────────────────────── -->
+<section class="insta" id="insta">
+  <div class="wrap">
+    <div class="insta-top reveal">
+      <div>
+        <span class="s-eyebrow">Instagram</span>
+        <h2 class="s-h2">Дивись новинки<br>в нашому Instagram</h2>
+        <p class="insta-lead">Нові надходження, beauty-тренди та атмосфера магазину — підпишись, щоб нічого не пропустити.</p>
+      </div>
+      <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+         target="_blank" rel="noopener" class="btn-primary">
+        📸 Підписатися
+      </a>
+    </div>
+
+    <div class="reels-grid">
+      <div class="reel reveal">
+        <div class="reel-bg" style="background-image:url('images/needly.jpg');background-size:cover;background-position:center;"></div>
+        <div class="reel-ov">
+          <div class="reel-play">▶</div>
+          <div class="reel-t">Needly · Collagen Gel Mask</div>
+          <div class="reel-tag">#skincare #новинки</div>
+        </div>
+      </div>
+      <div class="reel reveal">
+        <div class="reel-bg" style="background-image:url('images/gel.jpg');background-size:cover;background-position:center;"></div>
+        <div class="reel-ov">
+          <div class="reel-play">▶</div>
+          <div class="reel-t">Sister's Aroma · Raspberry</div>
+          <div class="reel-tag">#showergel #beauty</div>
+        </div>
+      </div>
+      <div class="reel reveal">
+        <div class="reel-bg" style="background-image:url('images/marvis.jpg');background-size:cover;background-position:center;"></div>
+        <div class="reel-ov">
+          <div class="reel-play">▶</div>
+          <div class="reel-t">Marvis · Whitening Mint</div>
+          <div class="reel-tag">#marvis #догляд</div>
+        </div>
+      </div>
+      <div class="reel reveal">
+        <div class="reel-bg" style="background-image:url('images/bjornaxen.jpg');background-size:cover;background-position:center;"></div>
+        <div class="reel-ov">
+          <div class="reel-play">▶</div>
+          <div class="reel-t">Björn Axén · Hair Serum</div>
+          <div class="reel-tag">#haircare #волосся</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insta-footer reveal">
+      <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+         target="_blank" rel="noopener" class="btn-primary">
+        Відкрити @beauty_black_room_ →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────
+     CTA
+────────────────────────────────────────── -->
+<section class="cta-sec" id="cta">
+  <div class="wrap">
+    <div class="cta-box reveal">
+
+      <div class="cta-l">
+        <div>
+          <span class="s-eyebrow">Зв'язок</span>
+          <h2>Завітай або<br><em>напиши нам</em></h2>
+        </div>
+        <p>Допоможемо підібрати косметику, догляд або парфуми — швидко і без зайвих слів.</p>
+
+        <div class="cta-contacts">
+          <a href="tel:+380501112233" class="cta-link">
+            <span class="cta-link-ico">📞</span> +380 50 111 22 33
+          </a>
+          <a href="mailto:beauty@gmail.com" class="cta-link">
+            <span class="cta-link-ico">✉️</span> beauty@gmail.com
+          </a>
+          <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+             target="_blank" rel="noopener" class="cta-link">
+            <span class="cta-link-ico">📸</span> @beauty_black_room_
+          </a>
+          <a href="#contacts" class="cta-link">
+            <span class="cta-link-ico">📍</span> пл. Кирила і Мефодія 4/10, Мукачево
+          </a>
+        </div>
+
+        <div class="cta-cta-btns">
+          <a href="tel:+380501112233" class="btn-green">📞 Подзвонити</a>
+          <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+             target="_blank" rel="noopener" class="btn-sm-ig" style="padding:12px 22px;font-size:.75rem;">
+            📸 Instagram
+          </a>
+        </div>
+      </div>
+
+      <div class="cta-r">
+        <h3>Залиш повідомлення</h3>
+        <p class="form-note">Ми відповімо і допоможемо зорієнтуватися в асортименті</p>
+
+        <form id="ctaForm" novalidate>
+          <div class="fg">
+            <label for="fn">Ім'я</label>
+            <input type="text" id="fn" class="fc" placeholder="Ваше ім'я" />
+          </div>
+          <div class="fg">
+            <label for="fp">Телефон *</label>
+            <input type="tel" id="fp" class="fc" placeholder="+380 (__) ___-__-__" required />
+          </div>
+          <div class="fg">
+            <label for="fc2">Коментар</label>
+            <textarea id="fc2" class="fc" rows="3" placeholder="Що вас цікавить?"></textarea>
+          </div>
+          <button type="submit" class="btn-form" id="formBtn">Надіслати повідомлення</button>
+        </form>
+
+        <div class="form-ok" id="formOk">
+          <div class="ok-ico">✦</div>
+          <h4>Дякуємо!</h4>
+          <p>Ми зв'яжемося з вами найближчим часом.<br>Або пишіть у Instagram — відповідаємо швидко.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────
+     CONTACTS
+────────────────────────────────────────── -->
+<section class="contacts" id="contacts">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="s-eyebrow">Де знайти</span>
+      <h2 class="s-h2">Контакти</h2>
+    </div>
+    <div class="contacts-wrap">
+
+      <div>
+        <div class="ci-list">
+          <div class="ci-item reveal">
+            <span class="ci-ico">📍</span>
+            <div><div class="ci-lbl">Адреса</div><div class="ci-val">Мукачево, пл. Кирила і Мефодія 4/10</div></div>
+          </div>
+          <div class="ci-item reveal">
+            <span class="ci-ico">📞</span>
+            <div><div class="ci-lbl">Телефон</div><div class="ci-val"><a href="tel:+380501112233">+380 50 111 22 33</a></div></div>
+          </div>
+          <div class="ci-item reveal">
+            <span class="ci-ico">✉️</span>
+            <div><div class="ci-lbl">Email</div><div class="ci-val"><a href="mailto:beauty@gmail.com">beauty@gmail.com</a></div></div>
+          </div>
+          <div class="ci-item reveal">
+            <span class="ci-ico">📸</span>
+            <div>
+              <div class="ci-lbl">Instagram</div>
+              <div class="ci-val">
+                <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+                   target="_blank" rel="noopener">@beauty_black_room_</a>
+              </div>
+            </div>
+          </div>
+          <div class="ci-item reveal">
+            <span class="ci-ico">🕐</span>
+            <div><div class="ci-lbl">Графік</div><div class="ci-val">Пн–Сб 10:00–20:00 · Нд 11:00–18:00</div></div>
+          </div>
+        </div>
+
+        <div class="ci-btns reveal">
+          <a href="tel:+380501112233" class="btn-green">📞 Подзвонити</a>
+          <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+             target="_blank" rel="noopener" class="btn-sm-ig" style="padding:12px 22px;font-size:.75rem;">
+            📸 Instagram
+          </a>
+        </div>
+      </div>
+
+      <div class="map-box reveal">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2641.09!2d22.71680!3d48.44182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4739d6a034500dff%3A0x1!2z0J1RgmstUGwuINCa0LjRgNC40LvQsCDRliDQnNC10YTQvtC00ZbRjyA00LgxMCwg0JzRg9C60LDRh9C10LLQvg!5e0!3m2!1suk!2sua!4v1"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Beauty Black Room — Мукачево">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────
+     FOOTER
+────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+
+      <div>
+        <a href="#" class="logo-mark">
+          <svg class="logo-circle" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="17" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
+            <text x="18" y="20" text-anchor="middle"
+                  font-family="'Cormorant Garamond',serif" font-size="9" font-weight="400"
+                  fill="white" letter-spacing=".5">BR</text>
+          </svg>
+          <div class="logo-text-block">
+            <span class="logo-name">Beauty Black Room</span>
+            <span class="logo-sub">Магазин · Мукачево</span>
+          </div>
+        </a>
+        <p class="fb-desc">Магазин оригінальної косметики, парфумерії та доглядових засобів у Мукачеві. Стиль, якість, новинки.</p>
+        <div class="f-socials">
+          <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+             target="_blank" rel="noopener" class="fsoc" aria-label="Instagram">📸</a>
+          <a href="tel:+380501112233" class="fsoc" aria-label="Телефон">📞</a>
+          <a href="mailto:beauty@gmail.com" class="fsoc" aria-label="Email">✉️</a>
+        </div>
+      </div>
+
+      <div class="fc-col">
+        <h4>Навігація</h4>
+        <ul>
+          <li><a href="#home">Головна</a></li>
+          <li><a href="#benefits">Переваги</a></li>
+          <li><a href="#categories">Асортимент</a></li>
+          <li><a href="#gallery">Галерея</a></li>
+          <li><a href="#insta">Instagram</a></li>
+          <li><a href="#contacts">Контакти</a></li>
+        </ul>
+      </div>
+
+      <div class="fc-col">
+        <h4>Контакти</h4>
+        <ul>
+          <li><a href="#">пл. Кирила і Мефодія 4/10</a></li>
+          <li><a href="tel:+380501112233">+380 50 111 22 33</a></li>
+          <li><a href="mailto:beauty@gmail.com">beauty@gmail.com</a></li>
+          <li><a href="#">Пн–Сб: 10:00–20:00</a></li>
+          <li><a href="#">Нд: 11:00–18:00</a></li>
+          <li>
+            <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
+               target="_blank" rel="noopener">@beauty_black_room_</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="foot-bar">
+      <p>© 2024 Beauty Black Room · <a href="#">Мукачево</a></p>
+      <div class="foot-policies">
+        <a href="#">Конфіденційність</a>
+        <a href="#">Умови</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="Нагору">↑</button>
+
+<!-- ──────────────────────────────────────────
+     JS
+────────────────────────────────────────── -->
+<script>
+  // ── SPARKLE CANVAS ──
+  (function() {
+    const canvas = document.getElementById('sparkleCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const COUNT = 130;
+    const COLORS = ['#FF4FA3','#FFC1DA','#ffffff','#e884c8','#f9a8d4','#ffd6ec','#FFD700'];
+    let W, H, particles = [];
+
+    function resize() {
+      const hero = canvas.parentElement;
+      W = canvas.width  = hero.offsetWidth;
+      H = canvas.height = hero.offsetHeight;
+    }
+    function rand(a,b){ return a + Math.random()*(b-a); }
+
+    function Particle() {
+      this.reset = function(fresh) {
+        this.x      = rand(0, W);
+        this.y      = fresh ? rand(0, H) : H + rand(10,40);
+        this.r      = rand(.5, 2.6);
+        this.vy     = rand(.2, .85);
+        this.vx     = rand(-.2, .2);
+        this.life   = rand(.3, 1);
+        this.flick  = rand(0, Math.PI*2);
+        this.fspd   = rand(.02, .065);
+        this.color  = COLORS[Math.floor(Math.random()*COLORS.length)];
+        this.star   = Math.random() > .68;
+      };
+      this.reset(true);
+    }
+
+    function drawStar(x,y,r,alpha){
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = r*.5;
+      ctx.beginPath();
+      ctx.moveTo(x-r*1.5,y); ctx.lineTo(x+r*1.5,y);
+      ctx.moveTo(x,y-r*1.5); ctx.lineTo(x,y+r*1.5);
+      ctx.stroke();
+      ctx.fillStyle='#fff';
+      ctx.beginPath(); ctx.arc(x,y,r*.45,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+
+    function init(){ particles=[]; for(let i=0;i<COUNT;i++){const p=new Particle();particles.push(p);} }
+
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      const t = performance.now()*.001;
+      particles.forEach(p=>{
+        const tw = p.life*(.5+.5*Math.sin(t*p.fspd*40+p.flick));
+        const alpha = Math.max(0,Math.min(1,tw));
+        if(p.star){ drawStar(p.x,p.y,p.r,alpha*.9); }
+        else {
+          ctx.save();
+          ctx.globalAlpha=alpha;
+          ctx.shadowBlur=p.r*7; ctx.shadowColor=p.color;
+          ctx.fillStyle=p.color;
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+          ctx.restore();
+        }
+        p.y-=p.vy; p.x+=p.vx+Math.sin(t*.35+p.flick)*.14;
+        if(p.y<-10) p.reset(false);
+      });
+      requestAnimationFrame(draw);
+    }
+
+    resize(); init(); draw();
+    window.addEventListener('resize', resize);
+  })();
+
+  // hero video
+  const heroVideo       = document.getElementById('heroVideo');
+  const heroPlaceholder = document.getElementById('heroPlaceholder');
+  const unmuteBtn       = document.getElementById('unmuteBtn');
+  const unmuteIco       = document.getElementById('unmuteIco');
+
+  if (heroVideo) {
+    // fallback if file missing
+    heroVideo.addEventListener('error', () => {
+      heroVideo.style.display = 'none';
+      if (heroPlaceholder) heroPlaceholder.style.display = 'flex';
+    });
+
+    // unmute toggle
+    if (unmuteBtn) {
+      unmuteBtn.addEventListener('click', () => {
+        heroVideo.muted = !heroVideo.muted;
+        if (!heroVideo.muted) {
+          unmuteIco.textContent = '🔊';
+          unmuteBtn.classList.add('active');
+          // restart from beginning for better UX
+          heroVideo.currentTime = 0;
+        } else {
+          unmuteIco.textContent = '🔇';
+          unmuteBtn.classList.remove('active');
+        }
+      });
+    }
+  }
+
+  // nav state
+  const nav   = document.getElementById('nav');
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 50);
+    toTop.classList.toggle('show', window.scrollY > 400);
+  });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // drawer
+  const ham    = document.getElementById('ham');
+  const drawer = document.getElementById('drawer');
+  ham.addEventListener('click', () => drawer.classList.toggle('open'));
+  drawer.addEventListener('click', e => {
+    if (e.target === drawer || e.target.classList.contains('dl'))
+      drawer.classList.remove('open');
+  });
+
+  // reveal on scroll (stagger siblings)
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const parent = entry.target.parentElement;
+      const sibs   = [...parent.querySelectorAll('.reveal:not(.in)')];
+      const idx    = sibs.indexOf(entry.target);
+      entry.target.style.transitionDelay = `${Math.max(0, idx) * 70}ms`;
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // phone mask
+  const fp = document.getElementById('fp');
+  if (fp) {
+    fp.addEventListener('input', () => {
+      let v = fp.value.replace(/\D/g, '');
+      if (v.startsWith('0'))   v = '380' + v.slice(1);
+      if (!v.startsWith('3'))  v = '380' + v;
+      v = v.slice(0, 12);
+      let f = '';
+      if (v.length > 0)  f  = '+' + v.slice(0,3);
+      if (v.length > 3)  f += ' (' + v.slice(3,5);
+      if (v.length >= 5) f += ')';
+      if (v.length > 5)  f += ' ' + v.slice(5,8);
+      if (v.length > 8)  f += '-' + v.slice(8,10);
+      if (v.length > 10) f += '-' + v.slice(10,12);
+      fp.value = f;
+    });
+  }
+
+  // form
+  const ctaForm = document.getElementById('ctaForm');
+  if (ctaForm) {
+    ctaForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const phone = document.getElementById('fp');
+      phone.classList.remove('err');
+      if (!phone.value.trim()) { phone.classList.add('err'); return; }
+
+      const btn = document.getElementById('formBtn');
+      btn.disabled = true;
+      btn.textContent = '…';
+      setTimeout(() => {
+        ctaForm.style.display   = 'none';
+        document.getElementById('formOk').style.display = 'block';
+      }, 900);
+    });
+    document.querySelectorAll('.fc').forEach(el =>
+      el.addEventListener('input', () => el.classList.remove('err'))
+    );
+  }
+</script>
+</body>
+</html>
