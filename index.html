@@ -7,23 +7,24 @@
   <meta name="description" content="Beauty Black Room — магазин оригінальної косметики, парфумерії та доглядових засобів у Мукачеві." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
   /* ──────────────────────────────────────────
      TOKENS
   ────────────────────────────────────────── */
   :root {
-    --pink:      #FF4FA3;
-    --pink-h:    #E84393;
-    --pink-l:    #FFC1DA;
-    --bg:        #1F1F1F;
-    --bg-card:   #2a2a2a;
-    --bg-deep:   #141414;
-    --div:       #2A2A2A;
+    --pink:      #FF1A8C;
+    --pink-h:    #D9006E;
+    --pink-l:    #FFB3D9;
+    --accent:    #B700FF;
+    --bg:        #07050e;
+    --bg-card:   #120d1e;
+    --bg-deep:   #040309;
+    --div:       #1a1228;
     --t:         #FFFFFF;
-    --t-muted:   #B0B0B0;
-    --t-faint:   #6b6b6b;
+    --t-muted:   #C8C8D8;
+    --t-faint:   #5a5a7a;
     --green:     #22C55E;
 
     --r1: 4px;
@@ -31,8 +32,8 @@
     --r3: 16px;
     --rpill: 100px;
 
-    --font-heading: 'Cormorant Garamond', Georgia, serif;
-    --font-body:    'Inter', system-ui, sans-serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body:    'Barlow', system-ui, sans-serif;
   }
 
   /* ──────────────────────────────────────────
@@ -42,11 +43,106 @@
   html { scroll-behavior: smooth; }
   body {
     font-family: var(--font-body);
-    background: var(--bg);
+    background:
+      radial-gradient(ellipse 100% 55% at 0% 0%,   rgba(160, 20, 100, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse 80%  60% at 100% 100%, rgba(100, 10, 180, 0.16) 0%, transparent 55%),
+      radial-gradient(ellipse 70%  45% at 55% 42%,  rgba(200, 30, 120, 0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50%  35% at 20% 80%,  rgba(80,  0,  150, 0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 40%  30% at 85% 20%,  rgba(180, 40, 80,  0.09) 0%, transparent 60%),
+      #07050e;
     color: var(--t);
     line-height: 1.65;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.022;
+  }
+  body > * { position: relative; z-index: 1; }
+
+
+  /* ──────────────────────────────────────────
+     PINK GIRAFFE
+  ────────────────────────────────────────── */
+  .giraffe {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.18;
+    filter: drop-shadow(0 0 18px rgba(255,26,140,0.4));
+    transition: opacity .4s;
+  }
+  .giraffe:hover { opacity: 0.28; }
+  .giraffe-left  { bottom: 0; left: -20px; height: 420px; transform-origin: bottom left; }
+  .giraffe-right { bottom: 0; right: -20px; height: 360px; transform-origin: bottom right; transform: scaleX(-1); }
+
+  /* ──────────────────────────────────────────
+     PROMO BANNERS
+  ────────────────────────────────────────── */
+  .promo-banners {
+    padding: 28px 0 0;
+    display: none;
+  }
+  .promo-banners.has-active { display: block; }
+
+  .pb-label {
+    text-align: center;
+    font-size: .6rem; font-weight: 500; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 18px;
+  }
+
+  .pb-scroll {
+    display: flex; gap: 16px;
+    overflow-x: auto; padding: 0 32px 8px;
+    scrollbar-width: none;
+  }
+  .pb-scroll::-webkit-scrollbar { display: none; }
+
+  .pb-card {
+    flex-shrink: 0;
+    width: clamp(260px, 30vw, 360px);
+    background: linear-gradient(135deg, var(--bg-card) 0%, #1e0c2a 100%);
+    border: 1px solid rgba(255,26,140,.25);
+    border-radius: var(--r3);
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+    display: none;
+  }
+  .pb-card.active { display: block; }
+  .pb-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--pb-line, linear-gradient(90deg, var(--pink), var(--accent)));
+  }
+  .pb-card-tag {
+    font-size: .58rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 8px;
+  }
+  .pb-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem; font-weight: 700; color: var(--t);
+    margin-bottom: 6px; line-height: 1.25;
+  }
+  .pb-card-desc {
+    font-size: .78rem; font-weight: 300; color: var(--t-muted); line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .pb-card-dates {
+    font-size: .62rem; font-weight: 400; letter-spacing: .1em;
+    color: var(--t-faint);
+  }
+  .pb-card-dates strong { color: var(--t-muted); }
+  .pb-card-glow {
+    position: absolute; bottom: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(255,26,140,.18) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
   }
   a { text-decoration: none; color: inherit; }
   ul { list-style: none; }
@@ -720,6 +816,102 @@
   .brand-name:hover { opacity: 1; color: var(--t); letter-spacing: .25em; }
 
   /* ──────────────────────────────────────────
+     SALE / АКЦІЇ
+  ────────────────────────────────────────── */
+  .sale { background: var(--bg); }
+
+  .sale-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .sale-card {
+    position: relative;
+    background: var(--bg-card);
+    border-radius: var(--r3);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.06);
+    transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+  }
+  .sale-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(0,0,0,.45), 0 0 0 1px rgba(255,79,163,.18);
+  }
+
+  .sale-card-img {
+    width: 100%; aspect-ratio: 4/3;
+    background: linear-gradient(160deg, #1a0812 0%, #3d1030 50%, #120609 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.2rem;
+    position: relative; overflow: hidden;
+  }
+  .sale-card-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 60%);
+  }
+
+  .sale-badge {
+    position: absolute; top: 14px; left: 14px; z-index: 2;
+    background: var(--pink);
+    color: #fff;
+    font-size: .6rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: var(--rpill);
+  }
+
+  .sale-card-body {
+    padding: 18px 20px 22px;
+  }
+  .sale-card-brand {
+    font-size: .6rem; font-weight: 400; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 5px;
+  }
+  .sale-card-name {
+    font-family: var(--font-heading);
+    font-size: 1.1rem; font-weight: 400; letter-spacing: .03em;
+    color: var(--t); line-height: 1.3; margin-bottom: 8px;
+  }
+  .sale-card-desc {
+    font-size: .78rem; font-weight: 300; color: var(--t-muted); line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .sale-prices {
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .sale-price-new {
+    font-size: 1.15rem; font-weight: 500; color: var(--t);
+    letter-spacing: .02em;
+  }
+  .sale-price-old {
+    font-size: .82rem; font-weight: 300; color: var(--t-faint);
+    text-decoration: line-through;
+  }
+  .sale-timer {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px;
+    font-size: .65rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--t-muted);
+  }
+  .sale-timer span { color: var(--pink); font-weight: 500; }
+
+  .sale-note {
+    text-align: center;
+    margin-top: 52px;
+    font-size: .78rem; font-weight: 300; color: var(--t-faint);
+    letter-spacing: .08em;
+  }
+  .sale-note a { color: var(--pink); border-bottom: 1px solid rgba(255,79,163,.35); }
+  .sale-note a:hover { border-color: var(--pink); }
+
+  @media (max-width: 860px) {
+    .sale-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 520px) {
+    .sale-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ──────────────────────────────────────────
      GALLERY
   ────────────────────────────────────────── */
   .gallery { background: var(--bg-deep); }
@@ -1079,6 +1271,7 @@
     <nav class="nav-links">
       <a href="#benefits">Переваги</a>
       <a href="#categories">Асортимент</a>
+      <a href="#sale" style="color:var(--pink)">Акції</a>
       <a href="#gallery">Галерея</a>
       <a href="#insta">Instagram</a>
       <a href="#contacts">Контакти</a>
@@ -1099,12 +1292,141 @@
   <div class="dp">
     <a href="#benefits"   class="dl">Переваги</a>
     <a href="#categories" class="dl">Асортимент</a>
+    <a href="#sale"       class="dl" style="color:var(--pink)">Акції</a>
     <a href="#gallery"    class="dl">Галерея</a>
     <a href="#insta"      class="dl">Instagram</a>
     <a href="#contacts"   class="dl">Контакти</a>
     <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx"
        target="_blank" rel="noopener" class="dl" style="color:var(--pink)">📸 Відкрити Instagram</a>
     <a href="tel:+380501112233" class="dl">📞 +380 50 111 22 33</a>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────
+     PROMO BANNERS
+────────────────────────────────────────── -->
+<div class="promo-banners" id="promoBanners" style="padding-top:86px;">
+  <div class="wrap">
+    <div class="pb-label">Активні акції</div>
+  </div>
+  <div class="pb-scroll">
+
+    <!-- Banner 1: 01.04 – 15.04.2026 -->
+    <div class="pb-card" data-from="2026-04-01" data-to="2026-04-15">
+      <div class="pb-card-tag">Весняний розпродаж</div>
+      <div class="pb-card-title">−30% на всі парфуми</div>
+      <div class="pb-card-desc">Lancôme, Dior, Charlotte Tilbury — обирай улюблений аромат вигідніше.</div>
+      <div class="pb-card-dates">Діє: <strong>1 квітня — 15 квітня 2026</strong></div>
+      <div class="pb-card-glow"></div>
+    </div>
+
+    <!-- Banner 2: 05.04 – 30.04.2026 -->
+    <div class="pb-card" data-from="2026-04-05" data-to="2026-04-30">
+      <div class="pb-card-tag">Місяць краси</div>
+      <div class="pb-card-title">Набори по 2 = −20%</div>
+      <div class="pb-card-desc">Будь-які два продукти La Roche-Posay або Shiseido — автоматична знижка 20%.</div>
+      <div class="pb-card-dates">Діє: <strong>5 квітня — 30 квітня 2026</strong></div>
+      <div class="pb-card-glow"></div>
+    </div>
+
+    <!-- Banner 3: 10.04 – 20.04.2026 -->
+    <div class="pb-card" data-from="2026-04-10" data-to="2026-04-20">
+      <div class="pb-card-tag">Flash sale</div>
+      <div class="pb-card-title">Kérastase −25%</div>
+      <div class="pb-card-desc">Лінія Nutritive та Resistance — обмежена кількість по акційній ціні.</div>
+      <div class="pb-card-dates">Діє: <strong>10 квітня — 20 квітня 2026</strong></div>
+      <div class="pb-card-glow"></div>
+    </div>
+
+    <!-- Banner 4: 20.04 – 05.05.2026 -->
+    <div class="pb-card" data-from="2026-04-20" data-to="2026-05-05">
+      <div class="pb-card-tag">Травнева пропозиція</div>
+      <div class="pb-card-title">Sister's Aroma 3+1</div>
+      <div class="pb-card-desc">Купуй 3 гелі — четвертий у подарунок. Понад 15 ароматів на вибір.</div>
+      <div class="pb-card-dates">Діє: <strong>20 квітня — 5 травня 2026</strong></div>
+      <div class="pb-card-glow"></div>
+    </div>
+
+    <!-- Banner 5: 01.04 – 30.04.2026 — активний -->
+    <div class="pb-card" data-from="2026-04-01" data-to="2026-04-30"
+         style="--pb-line: linear-gradient(90deg,#00C9A7,#00FFED);">
+      <div class="pb-card-tag" style="color:#00C9A7">Новинки квітня</div>
+      <div class="pb-card-title">−15% на всі нові надходження</div>
+      <div class="pb-card-desc">Щойно привезені позиції: Needly, Dr.Ceuracle, Björn Axén — перший місяць зі знижкою.</div>
+      <div class="pb-card-dates">Діє: <strong>1 — 30 квітня 2026</strong></div>
+      <div class="pb-card-glow" style="background:radial-gradient(circle,rgba(0,201,167,.18) 0%,transparent 70%)"></div>
+    </div>
+
+    <!-- Banner 6: 03.04 – 10.04.2026 — активний -->
+    <div class="pb-card" data-from="2026-04-03" data-to="2026-04-10"
+         style="--pb-line: linear-gradient(90deg,#FF6B00,#FFD700);">
+      <div class="pb-card-tag" style="color:#FF8C00">Flash Sale · 7 днів</div>
+      <div class="pb-card-title">NARS − 40%</div>
+      <div class="pb-card-desc">Культові тіні, рум'яна та помади NARS — найбільша знижка сезону. Кількість обмежена.</div>
+      <div class="pb-card-dates">Діє: <strong>3 — 10 квітня 2026</strong></div>
+      <div class="pb-card-glow" style="background:radial-gradient(circle,rgba(255,107,0,.18) 0%,transparent 70%)"></div>
+    </div>
+
+    <!-- Banner 7: 04.04 – 07.04.2026 — активний (цей тиждень) -->
+    <div class="pb-card" data-from="2026-04-04" data-to="2026-04-07"
+         style="--pb-line: linear-gradient(90deg,#FFD700,#FFA500);">
+      <div class="pb-card-tag" style="color:#FFD700">Тільки цього тижня</div>
+      <div class="pb-card-title">Charlotte Tilbury — подарунок до замовлення</div>
+      <div class="pb-card-desc">При купівлі будь-якого продукту CT — міні-набір для догляду за губами у подарунок.</div>
+      <div class="pb-card-dates">Діє: <strong>4 — 7 квітня 2026</strong></div>
+      <div class="pb-card-glow" style="background:radial-gradient(circle,rgba(255,215,0,.15) 0%,transparent 70%)"></div>
+    </div>
+
+    <!-- Banner 8: 02.04 – 12.04.2026 — активний -->
+    <div class="pb-card" data-from="2026-04-02" data-to="2026-04-12"
+         style="--pb-line: linear-gradient(90deg,#E040FB,#B700FF);">
+      <div class="pb-card-tag" style="color:#E040FB">MAC · Лімітована серія</div>
+      <div class="pb-card-title">Нова колаборація в наявності</div>
+      <div class="pb-card-desc">MAC Lunar New Year Collection — помади, підводки та палітри. Доступно ексклюзивно у нас.</div>
+      <div class="pb-card-dates">Діє: <strong>2 — 12 квітня 2026</strong></div>
+      <div class="pb-card-glow" style="background:radial-gradient(circle,rgba(183,0,255,.18) 0%,transparent 70%)"></div>
+    </div>
+
+    <!-- Banner 9: 01.04 – 14.04.2026 — активний -->
+    <div class="pb-card" data-from="2026-04-01" data-to="2026-04-14"
+         style="--pb-line: linear-gradient(90deg,#00D4AA,#0099CC);">
+      <div class="pb-card-tag" style="color:#00D4AA">Весняний детокс</div>
+      <div class="pb-card-title">La Roche-Posay Очищення − 22%</div>
+      <div class="pb-card-desc">Засоби для глибокого очищення та відновлення шкіри після зими. Серії Effaclar і Toleriane.</div>
+      <div class="pb-card-dates">Діє: <strong>1 — 14 квітня 2026</strong></div>
+      <div class="pb-card-glow" style="background:radial-gradient(circle,rgba(0,212,170,.15) 0%,transparent 70%)"></div>
+    </div>
+
+    <!-- Banner 10: 15.04 – 25.04.2026 — майбутній -->
+    <div class="pb-card" data-from="2026-04-15" data-to="2026-04-25"
+         style="--pb-line: linear-gradient(90deg,#43EA80,#00FF88);">
+      <div class="pb-card-tag" style="color:#43EA80">Earth Day Beauty</div>
+      <div class="pb-card-title">Eco-бренди − 18%</div>
+      <div class="pb-card-desc">До Дня Землі: знижки на всі натуральні та eco-certified продукти в магазині.</div>
+      <div class="pb-card-dates">Діє: <strong>15 — 25 квітня 2026</strong></div>
+      <div class="pb-card-glow" style="background:radial-gradient(circle,rgba(67,234,128,.15) 0%,transparent 70%)"></div>
+    </div>
+
+    <!-- Banner 11: 25.04 – 10.05.2026 — майбутній -->
+    <div class="pb-card" data-from="2026-04-25" data-to="2026-05-10"
+         style="--pb-line: linear-gradient(90deg,#FF1A8C,#FF6B6B);">
+      <div class="pb-card-tag" style="color:#FF6B6B">VIP Beauty Day</div>
+      <div class="pb-card-title">Подвійні бали + безкоштовна доставка</div>
+      <div class="pb-card-desc">Для всіх постійних клієнтів: x2 бонусні бали на будь-яку покупку та безкоштовна доставка.</div>
+      <div class="pb-card-dates">Діє: <strong>25 квітня — 10 травня 2026</strong></div>
+      <div class="pb-card-glow"></div>
+    </div>
+
+    <!-- Banner 12: 01.05 – 31.05.2026 — майбутній -->
+    <div class="pb-card" data-from="2026-05-01" data-to="2026-05-31"
+         style="--pb-line: linear-gradient(90deg,#FF8C42,#FF1A8C);">
+      <div class="pb-card-tag" style="color:#FF8C42">Травень краси</div>
+      <div class="pb-card-title">Весь місяць — спецціни</div>
+      <div class="pb-card-desc">Щотижневі сюрпризні знижки та обмежені пропозиції на топові позиції магазину.</div>
+      <div class="pb-card-dates">Діє: <strong>1 — 31 травня 2026</strong></div>
+      <div class="pb-card-glow" style="background:radial-gradient(circle,rgba(255,140,66,.15) 0%,transparent 70%)"></div>
+    </div>
+
   </div>
 </div>
 
@@ -1122,6 +1444,54 @@
     <canvas id="sparkleCanvas"></canvas>
   </div>
   <div class="hero-veil"></div>
+
+  <!-- pink giraffe left -->
+  <svg class="giraffe giraffe-left" viewBox="0 0 110 280" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">
+    <ellipse cx="55" cy="195" rx="40" ry="32" fill="#FF1A8C"/>
+    <path d="M48 168 L45 82 L62 82 L65 168 Z" fill="#FF1A8C"/>
+    <ellipse cx="53" cy="70" rx="17" ry="14" fill="#FF1A8C"/>
+    <ellipse cx="53" cy="79" rx="10" ry="7" fill="#FF1A8C"/>
+    <path d="M46 56 L43 36 L48 36 L46 56Z" fill="#FF1A8C"/>
+    <path d="M60 56 L57 36 L62 36 L60 56Z" fill="#FF1A8C"/>
+    <circle cx="45" cy="34" r="4" fill="#FF1A8C"/>
+    <circle cx="59" cy="34" r="4" fill="#FF1A8C"/>
+    <ellipse cx="38" cy="65" rx="6" ry="11" fill="#FF1A8C" transform="rotate(-20 38 65)"/>
+    <rect x="24" y="222" width="11" height="55" rx="5" fill="#FF1A8C"/>
+    <rect x="40" y="222" width="11" height="55" rx="5" fill="#FF1A8C"/>
+    <rect x="58" y="222" width="11" height="52" rx="5" fill="#FF1A8C"/>
+    <rect x="74" y="222" width="11" height="52" rx="5" fill="#FF1A8C"/>
+    <path d="M95 200 Q106 215 100 235" stroke="#FF1A8C" stroke-width="3.5" stroke-linecap="round"/>
+    <ellipse cx="50" cy="186" rx="10" ry="8" fill="#CC006E" opacity="0.55"/>
+    <ellipse cx="68" cy="196" rx="8" ry="9" fill="#CC006E" opacity="0.55"/>
+    <ellipse cx="56" cy="208" rx="9" ry="7" fill="#CC006E" opacity="0.55"/>
+    <ellipse cx="37" cy="198" rx="7" ry="6" fill="#CC006E" opacity="0.55"/>
+    <ellipse cx="50" cy="115" rx="6" ry="5" fill="#CC006E" opacity="0.4"/>
+    <ellipse cx="56" cy="135" rx="5" ry="6" fill="#CC006E" opacity="0.4"/>
+  </svg>
+
+  <!-- pink giraffe right -->
+  <svg class="giraffe giraffe-right" viewBox="0 0 110 280" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">
+    <ellipse cx="55" cy="195" rx="40" ry="32" fill="#FF1A8C"/>
+    <path d="M48 168 L45 82 L62 82 L65 168 Z" fill="#FF1A8C"/>
+    <ellipse cx="53" cy="70" rx="17" ry="14" fill="#FF1A8C"/>
+    <ellipse cx="53" cy="79" rx="10" ry="7" fill="#FF1A8C"/>
+    <path d="M46 56 L43 36 L48 36 L46 56Z" fill="#FF1A8C"/>
+    <path d="M60 56 L57 36 L62 36 L60 56Z" fill="#FF1A8C"/>
+    <circle cx="45" cy="34" r="4" fill="#FF1A8C"/>
+    <circle cx="59" cy="34" r="4" fill="#FF1A8C"/>
+    <ellipse cx="38" cy="65" rx="6" ry="11" fill="#FF1A8C" transform="rotate(-20 38 65)"/>
+    <rect x="24" y="222" width="11" height="55" rx="5" fill="#FF1A8C"/>
+    <rect x="40" y="222" width="11" height="55" rx="5" fill="#FF1A8C"/>
+    <rect x="58" y="222" width="11" height="52" rx="5" fill="#FF1A8C"/>
+    <rect x="74" y="222" width="11" height="52" rx="5" fill="#FF1A8C"/>
+    <path d="M95 200 Q106 215 100 235" stroke="#FF1A8C" stroke-width="3.5" stroke-linecap="round"/>
+    <ellipse cx="50" cy="186" rx="10" ry="8" fill="#CC006E" opacity="0.55"/>
+    <ellipse cx="68" cy="196" rx="8" ry="9" fill="#CC006E" opacity="0.55"/>
+    <ellipse cx="56" cy="208" rx="9" ry="7" fill="#CC006E" opacity="0.55"/>
+    <ellipse cx="37" cy="198" rx="7" ry="6" fill="#CC006E" opacity="0.55"/>
+    <ellipse cx="50" cy="115" rx="6" ry="5" fill="#CC006E" opacity="0.4"/>
+    <ellipse cx="56" cy="135" rx="5" ry="6" fill="#CC006E" opacity="0.4"/>
+  </svg>
 
   <!-- watermark logo -->
   <div class="hero-watermark">
@@ -1369,6 +1739,136 @@
     </div>
   </div>
 </div>
+
+<!-- ──────────────────────────────────────────
+     SALE / АКЦІЇ
+────────────────────────────────────────── -->
+<section class="sale" id="sale">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="s-eyebrow">Обмежена пропозиція</span>
+      <h2 class="s-h2">Акційні <em>товари</em></h2>
+      <p class="s-p">Спеціальні ціни на популярні позиції — тільки поки є в наявності.</p>
+    </div>
+
+    <div class="sale-grid">
+
+      <!-- Card 1 -->
+      <div class="sale-card reveal">
+        <div class="sale-card-img">
+          🌹
+          <div class="sale-badge">−30%</div>
+        </div>
+        <div class="sale-card-body">
+          <div class="sale-card-brand">Lancôme</div>
+          <div class="sale-card-name">La Vie est Belle Eau de Parfum</div>
+          <div class="sale-card-desc">Квітково-гурманський аромат з нотами іриса, ванілі та пачулі. 50 мл.</div>
+          <div class="sale-prices">
+            <span class="sale-price-new">1 890 грн</span>
+            <span class="sale-price-old">2 700 грн</span>
+          </div>
+          <div class="sale-timer">⏳ Діє до <span>15 квітня</span></div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="sale-card reveal">
+        <div class="sale-card-img">
+          💆
+          <div class="sale-badge">−25%</div>
+        </div>
+        <div class="sale-card-body">
+          <div class="sale-card-brand">La Roche-Posay</div>
+          <div class="sale-card-name">Effaclar Duo+ Набір для обличчя</div>
+          <div class="sale-card-desc">Крем + міцелярна вода + очищувальний гель. Ідеально для проблемної шкіри.</div>
+          <div class="sale-prices">
+            <span class="sale-price-new">1 120 грн</span>
+            <span class="sale-price-old">1 490 грн</span>
+          </div>
+          <div class="sale-timer">⏳ Діє до <span>20 квітня</span></div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="sale-card reveal">
+        <div class="sale-card-img">
+          💇
+          <div class="sale-badge">−20%</div>
+        </div>
+        <div class="sale-card-body">
+          <div class="sale-card-brand">Kérastase</div>
+          <div class="sale-card-name">Nutritive Bain Satin Шампунь</div>
+          <div class="sale-card-desc">Поживний шампунь для сухого та пошкодженого волосся. 250 мл.</div>
+          <div class="sale-prices">
+            <span class="sale-price-new">680 грн</span>
+            <span class="sale-price-old">850 грн</span>
+          </div>
+          <div class="sale-timer">⏳ Діє до <span>30 квітня</span></div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="sale-card reveal">
+        <div class="sale-card-img">
+          💋
+          <div class="sale-badge">−35%</div>
+        </div>
+        <div class="sale-card-body">
+          <div class="sale-card-brand">Charlotte Tilbury</div>
+          <div class="sale-card-name">Pillow Talk Lipstick</div>
+          <div class="sale-card-desc">Культова помада у відтінку nude-pink. Зволожує та надає стійкий колір на 8 годин.</div>
+          <div class="sale-prices">
+            <span class="sale-price-new">920 грн</span>
+            <span class="sale-price-old">1 420 грн</span>
+          </div>
+          <div class="sale-timer">⏳ Останні 4 шт.</div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="sale-card reveal">
+        <div class="sale-card-img">
+          ✨
+          <div class="sale-badge">−15%</div>
+        </div>
+        <div class="sale-card-body">
+          <div class="sale-card-brand">Shiseido</div>
+          <div class="sale-card-name">Ultimune Power Infusing Concentrate</div>
+          <div class="sale-card-desc">Сироватка-концентрат для зміцнення захисних функцій шкіри. 30 мл.</div>
+          <div class="sale-prices">
+            <span class="sale-price-new">2 040 грн</span>
+            <span class="sale-price-old">2 400 грн</span>
+          </div>
+          <div class="sale-timer">⏳ Діє до <span>25 квітня</span></div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="sale-card reveal">
+        <div class="sale-card-img">
+          🛁
+          <div class="sale-badge">2+1</div>
+        </div>
+        <div class="sale-card-body">
+          <div class="sale-card-brand">Sister's Aroma</div>
+          <div class="sale-card-name">Smart Shower Gel — будь-який аромат</div>
+          <div class="sale-card-desc">При купівлі двох гелів — третій у подарунок. Понад 12 ароматів на вибір.</div>
+          <div class="sale-prices">
+            <span class="sale-price-new">від 290 грн/шт.</span>
+          </div>
+          <div class="sale-timer">⏳ Пропозиція місяця</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="sale-note reveal">
+      Уточнити наявність та деталі акцій —
+      <a href="https://www.instagram.com/beauty_black_room_?igsh=cGx4NGljYzdieDFx" target="_blank" rel="noopener">в Instagram</a>
+      або за телефоном.
+    </p>
+  </div>
+</section>
 
 <!-- ──────────────────────────────────────────
      GALLERY
@@ -1659,6 +2159,7 @@
           <li><a href="#home">Головна</a></li>
           <li><a href="#benefits">Переваги</a></li>
           <li><a href="#categories">Асортимент</a></li>
+          <li><a href="#sale" style="color:var(--pink)">Акції</a></li>
           <li><a href="#gallery">Галерея</a></li>
           <li><a href="#insta">Instagram</a></li>
           <li><a href="#contacts">Контакти</a></li>
@@ -1873,6 +2374,24 @@
       el.addEventListener('input', () => el.classList.remove('err'))
     );
   }
+
+  // ── PROMO BANNERS: show only if today is between data-from and data-to ──
+  (function() {
+    const wrap = document.getElementById('promoBanners');
+    if (!wrap) return;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let anyActive = false;
+    wrap.querySelectorAll('.pb-card').forEach(card => {
+      const from = card.dataset.from ? new Date(card.dataset.from) : null;
+      const to   = card.dataset.to   ? new Date(card.dataset.to)   : null;
+      if (from && to && today >= from && today <= to) {
+        card.classList.add('active');
+        anyActive = true;
+      }
+    });
+    if (anyActive) wrap.classList.add('has-active');
+  })();
 </script>
 </body>
 </html>
