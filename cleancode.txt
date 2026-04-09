@@ -1,0 +1,28 @@
+Структура коду — завжди по файлах і папках:
+Коли пишеш код — розбивай по файлах і папках. Ніколи не кидай все в один файл.
+Структура проєкту:
+project/
+├── index.html
+├── assets/
+│   ├── css/
+│   │   ├── style.css        (основні стилі)
+│   │   ├── components.css   (компоненти)
+│   │   └── responsive.css   (медіа-запити)
+│   ├── js/
+│   │   ├── main.js          (ініціалізація)
+│   │   ├── utils.js         (допоміжні функції)
+│   │   └── [feature].js     (окремий модуль)
+│   └── images/
+├── components/              (якщо є HTML-компоненти)
+└── pages/                   (якщо багатосторінковий сайт)
+Правила іменування:
+
+Файли — kebab-case (hero-section.css, form-handler.js)
+JS класи — PascalCase
+JS функції/змінні — camelCase
+CSS класи — kebab-case або BEM
+
+Підключення в HTML — завжди окремо:
+html<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/main.js" defer></script>
+Якщо проєкт на фреймворку — адаптуй під його структуру (React, Vue тощо), але принцип той самий: один файл = одна відповідальність.

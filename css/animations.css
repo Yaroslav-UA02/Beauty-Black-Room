@@ -1,0 +1,7 @@
+/* ══════════════════════════════════════════
+   BEAUTY BLACK ROOM — ANIMATIONS (GSAP handles most)
+   Only pure CSS animations that don't need scroll
+   ══════════════════════════════════════════ */
+
+/* elements start hidden, GSAP reveals them */
+.gsap-hidden { opacity: 0; }
