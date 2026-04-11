@@ -120,8 +120,8 @@
     @media (max-width: 768px) {
       .admin-body { padding: 16px; }
       .modal-grid { grid-template-columns: 1fr; }
-      .admin-header { flex-wrap: wrap; gap: 10px; padding: 12px 16px; }
-      .admin-nav { overflow-x: auto; padding-bottom: 4px; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+      .admin-header { flex-wrap: wrap; gap: 8px; padding: 12px 16px; }
+      .admin-nav { overflow-x: auto; padding-bottom: 4px; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; order: 3; width: 100%; }
       .admin-nav-btn { white-space: nowrap; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
       .stat-value { font-size: 2rem; }
@@ -129,13 +129,97 @@
       thead th, tbody td { padding: 10px 12px; }
       .td-name { max-width: 120px; }
     }
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
+      /* Header: brand + logout top row, nav below */
+      .admin-header { padding: 10px 14px; }
+      .admin-brand { font-size: 1.15rem; }
+      .btn-logout { padding: 7px 14px; font-size: .75rem; }
+      .admin-nav-btn { padding: 7px 11px; font-size: .78rem; }
+
+      /* Body */
       .admin-body { padding: 12px; }
+      .section-head { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 18px; }
+      .section-title { font-size: 1.4rem; }
+
+      /* Search + filter stacked */
+      #adminFiltersBar { flex-direction: column; gap: 8px; }
+      #adminSearch, #adminCatSelect { min-width: 0 !important; width: 100%; }
+
+      /* Stats */
       .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .admin-nav-btn { padding: 6px 10px; font-size: .78rem; }
-      .section-head { flex-direction: column; align-items: flex-start; }
-      .modal { padding: 24px 20px; }
-      .login-box { padding: 32px 24px; }
+      .stat-card { padding: 16px; }
+      .stat-value { font-size: 1.8rem; }
+      .stat-label { font-size: .65rem; }
+
+      /* ── TABLE → CARDS ── */
+      .products-table-wrap { border: none; background: transparent; overflow-x: unset; border-radius: 0; }
+      .products-table-wrap table,
+      .products-table-wrap tbody,
+      .products-table-wrap tr,
+      .products-table-wrap td { display: block; width: 100%; }
+      .products-table-wrap thead { display: none; }
+
+      .products-table-wrap tbody tr {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        margin-bottom: 10px;
+        padding: 14px;
+        position: relative;
+      }
+      .products-table-wrap tbody td { padding: 2px 0; border: none; }
+
+      /* Photo — absolute top-right */
+      .products-table-wrap tbody td:first-child { position: absolute; top: 14px; right: 14px; width: auto; }
+      .td-img { width: 54px; height: 54px; }
+
+      /* Name — max-width leaves room for image */
+      .td-name { max-width: calc(100% - 72px) !important; font-size: .9rem; padding-bottom: 4px; }
+
+      /* Inline meta row: category · price · badge */
+      .td-cat, .td-price { display: inline-block; width: auto; font-size: .8rem; }
+      .td-cat::after { content: " · "; color: var(--muted); }
+      .products-table-wrap tbody td:nth-child(5) { display: inline-block; width: auto; padding-left: 4px; }
+
+      /* Labels via data-label */
+      .products-table-wrap tbody td[data-label]::before {
+        display: none; /* meta already visible inline */
+      }
+
+      /* Actions row */
+      .td-actions {
+        margin-top: 10px;
+        border-top: 1px solid var(--border);
+        padding-top: 10px;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+      .btn-edit, .btn-danger { padding: 8px 18px; font-size: .8rem; }
+
+      /* Card empty/loading states */
+      .table-empty, .table-loading { padding: 40px 20px; }
+
+      /* Modal */
+      .modal-overlay { padding: 0; align-items: flex-end; }
+      .modal {
+        border-radius: 20px 20px 0 0;
+        max-height: 92vh;
+        padding: 24px 18px 32px;
+        max-width: 100%;
+      }
+      .modal-title { font-size: 1.3rem; margin-bottom: 20px; }
+      .modal-actions { gap: 10px; }
+      .btn-cancel, .btn-primary { padding: 12px 18px; flex: 1; }
+
+      /* Login */
+      .login-box { padding: 32px 20px; }
+
+      /* Toast */
+      .admin-toast { bottom: 16px; right: 12px; left: 12px; max-width: 100%; text-align: center; }
+    }
+    @media (max-width: 380px) {
+      .admin-nav-btn { padding: 6px 9px; font-size: .73rem; }
+      .stat-value { font-size: 1.5rem; }
     }
   </style>
 </head>
@@ -194,9 +278,9 @@
           <h2 class="section-title">Товари</h2>
           <button class="btn-primary" id="addProductBtn">+ Додати товар</button>
         </div>
-        <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
-          <input id="adminSearch" type="text" placeholder="Пошук за назвою..." style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#fff;padding:8px 16px;border-radius:8px;font-family:Jost,sans-serif;font-size:.85rem;outline:none;flex:1;min-width:200px;" />
-          <select id="adminCatSelect" style="background:#1a1a1a;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.7);padding:8px 16px;border-radius:8px;font-family:Jost,sans-serif;font-size:.85rem;outline:none;cursor:pointer;">
+        <div id="adminFiltersBar" style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+          <input id="adminSearch" type="text" placeholder="Пошук за назвою..." style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#fff;padding:8px 16px;border-radius:8px;font-family:Jost,sans-serif;font-size:.85rem;outline:none;flex:1;min-width:160px;" />
+          <select id="adminCatSelect" style="background:#1a1a1a;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.7);padding:8px 16px;border-radius:8px;font-family:Jost,sans-serif;font-size:.85rem;outline:none;cursor:pointer;min-width:140px;">
             <option value="">Всі категорії</option>
             <option value="face">Обличчя</option>
             <option value="hair">Волосся</option>
@@ -346,12 +430,7 @@
     import {
       addDoc, updateDoc, deleteDoc, serverTimestamp
     } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
-
-    const CATEGORY_LABELS = {
-      face: 'Обличчя', hair: 'Волосся', body: 'Тіло',
-      men: 'Чоловіки', perfumes: 'Парфуми', home: 'Дім',
-      kids: 'Діти', sale: 'Розпродаж'
-    };
+    import { CATEGORY_LABELS } from './js/constants.js';
 
     let products = [];
     let categories = [];
@@ -446,12 +525,12 @@
         <tr>
           <td><img class="td-img" src="${p.images?.[0] || ''}" alt="${p.name}" onerror="this.style.display='none'" /></td>
           <td class="td-name">${p.name}</td>
-          <td class="td-cat">${CATEGORY_LABELS[p.category] || p.category}</td>
-          <td class="td-price">${(p.price || 0).toLocaleString('uk-UA')} ₴</td>
-          <td><span class="${p.inStock !== false ? 'badge-in' : 'badge-out'}">${p.inStock !== false ? 'Є' : 'Немає'}</span></td>
+          <td class="td-cat" data-label="Кат.">${CATEGORY_LABELS[p.category] || p.category || '—'}</td>
+          <td class="td-price" data-label="Ціна">${(p.price || 0).toLocaleString('uk-UA')} ₴</td>
+          <td data-label="Наявн."><span class="${p.inStock !== false ? 'badge-in' : 'badge-out'}">${p.inStock !== false ? 'Є' : 'Немає'}</span></td>
           <td><div class="td-actions">
-            <button class="btn-edit" onclick="editProduct('${p.id}')">Ред.</button>
-            <button class="btn-danger" onclick="deleteProduct('${p.id}','${p.name}')">Вид.</button>
+            <button class="btn-edit" onclick="editProduct('${p.id}')">Редагувати</button>
+            <button class="btn-danger" onclick="deleteProduct('${p.id}','${p.name?.replace(/'/g,&quot;′&quot;)}')">Видалити</button>
           </div></td>
         </tr>`).join('');
     }
@@ -614,12 +693,12 @@
       }
       tbody.innerHTML = categories.map(c => `
         <tr>
-          <td>${c.name}</td>
-          <td style="color:var(--muted);font-size:.8rem;">${c.slug}</td>
-          <td>${c.order ?? 0}</td>
+          <td style="font-weight:500;">${c.name}</td>
+          <td class="td-cat" data-label="Slug">${c.slug}</td>
+          <td data-label="Порядок">${c.order ?? 0}</td>
           <td><div class="td-actions">
-            <button class="btn-edit" onclick="editCat('${c.id}')">Ред.</button>
-            <button class="btn-danger" onclick="deleteCat('${c.id}','${c.name}')">Вид.</button>
+            <button class="btn-edit" onclick="editCat('${c.id}')">Редагувати</button>
+            <button class="btn-danger" onclick="deleteCat('${c.id}','${c.name}')">Видалити</button>
           </div></td>
         </tr>`).join('');
     }

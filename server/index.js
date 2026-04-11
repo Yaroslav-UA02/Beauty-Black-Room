@@ -23,6 +23,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
+// Centralized error handler (must be last)
+const { errorHandler } = require('./middleware/errorHandler');
+app.use(errorHandler);
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

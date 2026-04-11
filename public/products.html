@@ -246,14 +246,14 @@
   <!-- CART SIDEBAR -->
   <div class="cart-overlay" id="cartOverlay"></div>
   <aside class="cart-sidebar" id="cartSidebar">
-    <div class="cart-head">
-      <span class="cart-title">Кошик</span>
-      <button class="cart-close" id="cartClose">✕</button>
+    <div class="cart-header">
+      <h3>Кошик</h3>
+      <button class="cart-close" id="cartClose">&times;</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
-    <div class="cart-foot" id="cartFooter" style="display:none">
-      <div class="cart-total-row"><span>Разом</span><span id="cartTotal">0 ₴</span></div>
-      <a href="tel:+380995566006" class="btn btn-pink" style="width:100%;text-align:center;display:block;">Замовити по телефону</a>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">Разом: <strong id="cartTotal">0 ₴</strong></div>
+      <a href="tel:+380995566006" class="btn btn-pink btn-full">Замовити по телефону</a>
     </div>
   </aside>
 
@@ -361,12 +361,7 @@
   <script type="module">
     import { db, collection, getDocs, query, where, limit }
       from './js/firebase-client.js';
-
-    const CATEGORY_LABELS = {
-      face: 'Обличчя', hair: 'Волосся', body: 'Тіло',
-      men: 'Чоловіки', perfumes: 'Парфуми', home: 'Дім',
-      kids: 'Діти', sale: 'Розпродаж'
-    };
+    import { CATEGORY_LABELS } from './js/constants.js';
 
     let allProducts = [];
     let activeCategory = new URLSearchParams(window.location.search).get('category') || '';
@@ -459,7 +454,19 @@
     function cardHTML(p) {
       const img = p.images?.[0] || 'images/hero.jpg';
       const cat = CATEGORY_LABELS[p.category] || p.category || '';
-      const price = (p.price || 0).toLocaleString('uk-UA');
+
+      // Ціна: діапазон для парфумів, звичайна для решти
+      let priceHTML;
+      if (p.priceMin && p.priceMax && p.priceMax > p.priceMin) {
+        priceHTML = `від ${p.priceMin.toLocaleString('uk-UA')} <span>₴</span>`;
+      } else {
+        const price = (p.price || 0).toLocaleString('uk-UA');
+        priceHTML = `${price} <span>₴</span>`;
+      }
+
+      // Короткий опис (обрізаємо до 90 символів)
+      const desc = p.description ? p.description.slice(0, 90) + (p.description.length > 90 ? '…' : '') : '';
+
       return `
         <div class="catalog-card" data-id="${p.id}">
           <div class="catalog-card-img">
@@ -469,9 +476,9 @@
           <div class="catalog-card-body">
             <div class="catalog-card-cat">${cat}</div>
             <div class="catalog-card-name">${p.name}</div>
-            <div class="catalog-card-desc">${p.description || ''}</div>
+            <div class="catalog-card-desc">${desc}</div>
             <div class="catalog-card-footer">
-              <div class="catalog-card-price">${price} <span>₴</span></div>
+              <div class="catalog-card-price">${priceHTML}</div>
               <button class="btn-add-cart" data-id="${p.id}" data-name="${p.name}" data-price="${p.price||0}" data-img="${img}">+ Кошик</button>
             </div>
           </div>

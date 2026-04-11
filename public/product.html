@@ -63,6 +63,18 @@
     /* ── PRICE NO VALUE ── */
     .product-price.no-price { font-size: 1.1rem; color: rgba(255,255,255,.4); font-weight: 300; letter-spacing: 1px; }
 
+    /* ── VOLUME SELECTOR ── */
+    .volume-label { font-family: 'Jost', sans-serif; font-size: .7rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 10px; }
+    .volume-options { display: flex; gap: 8px; flex-wrap: wrap; }
+    .vol-btn { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.7); padding: 8px 16px; border-radius: 8px; font-family: 'Jost', sans-serif; font-size: .82rem; cursor: pointer; transition: all .2s; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .vol-btn:hover { border-color: rgba(255,79,163,.4); color: #fff; }
+    .vol-btn.active { background: rgba(255,79,163,.15); border-color: rgba(255,79,163,.6); color: #FF4FA3; }
+    .vol-btn .vol-price { font-size: .7rem; color: rgba(255,255,255,.4); }
+    .vol-btn.active .vol-price { color: rgba(255,79,163,.7); }
+
+    /* ── PRICE RANGE ── */
+    .price-range-hint { font-family: 'Jost', sans-serif; font-size: .75rem; color: rgba(255,255,255,.3); margin-top: 4px; }
+
     /* ── DIVIDER ── */
     .product-divider { height: 1px; background: rgba(255,255,255,.06); margin: 8px 0; }
 
@@ -234,14 +246,14 @@
 
   <div class="cart-overlay" id="cartOverlay"></div>
   <aside class="cart-sidebar" id="cartSidebar">
-    <div class="cart-head">
-      <span class="cart-title">Кошик</span>
-      <button class="cart-close" id="cartClose">✕</button>
+    <div class="cart-header">
+      <h3>Кошик</h3>
+      <button class="cart-close" id="cartClose">&times;</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
-    <div class="cart-foot" id="cartFooter" style="display:none">
-      <div class="cart-total-row"><span>Разом</span><span id="cartTotal">0 ₴</span></div>
-      <a href="tel:+380995566006" class="btn btn-pink" style="width:100%;text-align:center;display:block;">Замовити по телефону</a>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">Разом: <strong id="cartTotal">0 ₴</strong></div>
+      <a href="tel:+380995566006" class="btn btn-pink btn-full">Замовити по телефону</a>
     </div>
   </aside>
 
@@ -261,12 +273,7 @@
   <script type="module">
     import { db, getDoc, doc, collection, getDocs, query, where, limit }
       from './js/firebase-client.js';
-
-    const CATEGORY_LABELS = {
-      face: 'Обличчя', hair: 'Волосся', body: 'Тіло',
-      men: 'Чоловіки', perfumes: 'Парфуми', home: 'Дім',
-      kids: 'Діти', sale: 'Розпродаж'
-    };
+    import { CATEGORY_LABELS } from './js/constants.js';
 
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
@@ -333,7 +340,24 @@
             <h1 class="product-name">${p.name}</h1>
             ${reviews.length ? `<div class="stars" style="margin-top:-8px">${starsHTML(avgRating)}<span style="font-family:'Jost',sans-serif;font-size:.75rem;color:rgba(255,255,255,.3);margin-left:8px;">${avgRating} (${reviews.length})</span></div>` : ''}
             <div class="product-divider"></div>
-            <div class="product-price ${!p.price || p.price<=0 ? 'no-price' : ''}">${formatPrice(p.price)}</div>
+            ${(() => {
+              // Парфум з об'ємами — показуємо ціну першого вибраного
+              if (p.category === 'perfumes' && p.volumes && p.volumes.length > 0) {
+                const volBtns = p.volumes.map((v, i) => `
+                  <button class="vol-btn${i===0?' active':''}" data-price="${v.price}" data-label="${v.label}">
+                    <span>${v.label}</span>
+                    <span class="vol-price">${v.price.toLocaleString('uk-UA')} ₴</span>
+                  </button>`).join('');
+                return `
+                  <div class="product-price" id="productPrice">${p.volumes[0].price.toLocaleString('uk-UA')} <span>₴</span></div>
+                  <div style="margin-top:-8px;">
+                    <div class="volume-label">Оберіть об'єм</div>
+                    <div class="volume-options" id="volumeOptions">${volBtns}</div>
+                  </div>`;
+              }
+              // Звичайний товар
+              return `<div class="product-price ${!p.price || p.price<=0 ? 'no-price' : ''}" id="productPrice">${formatPrice(p.price)}</div>`;
+            })()}
             <div class="product-stock">
               <div class="stock-dot ${p.inStock!==false?'in':'out'}"></div>
               <span style="color:rgba(255,255,255,.5);font-family:'Jost',sans-serif;font-size:.8rem;letter-spacing:1px;">
@@ -357,10 +381,35 @@
         });
       });
 
+      /* Volume selector */
+      let selectedPrice = p.price || 0;
+      let selectedLabel = '';
+      const volOptions = document.getElementById('volumeOptions');
+      if (volOptions) {
+        // Init from first active button
+        const firstBtn = volOptions.querySelector('.vol-btn.active');
+        if (firstBtn) {
+          selectedPrice = +firstBtn.dataset.price;
+          selectedLabel = firstBtn.dataset.label;
+        }
+        volOptions.addEventListener('click', e => {
+          const btn = e.target.closest('.vol-btn');
+          if (!btn) return;
+          volOptions.querySelectorAll('.vol-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedPrice = +btn.dataset.price;
+          selectedLabel = btn.dataset.label;
+          const priceEl = document.getElementById('productPrice');
+          if (priceEl) priceEl.innerHTML = `${selectedPrice.toLocaleString('uk-UA')} <span>₴</span>`;
+        });
+      }
+
       /* Cart */
       document.getElementById('addToCartBtn').addEventListener('click', () => {
-        if (typeof addToCart === 'function')
-          addToCart({ id: p.id, name: p.name, price: p.price||0, img: images[0] });
+        if (typeof addToCart === 'function') {
+          const label = selectedLabel ? ` (${selectedLabel})` : '';
+          addToCart({ id: p.id, name: p.name + label, price: selectedPrice, img: images[0] });
+        }
       });
 
       /* Reviews section */

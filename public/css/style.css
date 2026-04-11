@@ -100,6 +100,7 @@ em{font-style:italic;color:var(--pink)}
 }
 .btn-pink{background:var(--pink);color:#fff}
 .btn-pink:hover{background:var(--pink-h);box-shadow:0 8px 32px rgba(255,79,163,.35)}
+.btn-full{width:100%;justify-content:center;text-align:center;display:block}
 .btn-glass{background:rgba(255,255,255,.04);color:var(--text);border:1px solid var(--border);backdrop-filter:blur(12px)}
 .btn-glass:hover{border-color:rgba(255,79,163,.35);background:rgba(255,79,163,.06)}
 .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
