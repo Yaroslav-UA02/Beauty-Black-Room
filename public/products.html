@@ -12,46 +12,133 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/responsive.css" />
   <style>
+    /* ── PAGE ── */
     .catalog-page { padding: 120px 40px 80px; min-height: 100vh; }
-    .catalog-header { text-align: center; margin-bottom: 60px; }
+    .catalog-header { text-align: center; margin-bottom: 48px; }
     .catalog-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 4rem); font-weight: 300; color: #fff; margin-bottom: 12px; }
     .catalog-header p { color: rgba(255,255,255,.5); font-family: 'Jost', sans-serif; font-size: .9rem; letter-spacing: 2px; text-transform: uppercase; }
 
-    .catalog-controls { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 48px; }
-    .filter-btn { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.6); padding: 8px 20px; border-radius: 50px; font-family: 'Jost', sans-serif; font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all .3s; }
-    .filter-btn:hover, .filter-btn.active { background: linear-gradient(135deg,#FF4FA3,#9D4FFF); border-color: transparent; color: #fff; }
-
-    .catalog-search { display: flex; justify-content: center; margin-bottom: 40px; }
-    .catalog-search input { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: #fff; padding: 12px 24px; border-radius: 50px; font-family: 'Jost', sans-serif; font-size: .9rem; width: 100%; max-width: 400px; outline: none; transition: border-color .3s; }
+    /* ── SEARCH ── */
+    .catalog-search { display: flex; justify-content: center; margin-bottom: 32px; }
+    .catalog-search input { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: #fff; padding: 12px 24px; border-radius: 50px; font-family: 'Jost', sans-serif; font-size: .9rem; width: 100%; max-width: 420px; outline: none; transition: border-color .3s; }
     .catalog-search input::placeholder { color: rgba(255,255,255,.3); }
     .catalog-search input:focus { border-color: rgba(255,79,163,.5); }
 
-    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; max-width: 1400px; margin: 0 auto; }
+    /* ── CATEGORY BUTTONS ── */
+    .catalog-controls { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px; }
+    .filter-btn { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.6); padding: 7px 18px; border-radius: 50px; font-family: 'Jost', sans-serif; font-size: .75rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all .25s; }
+    .filter-btn:hover, .filter-btn.active { background: linear-gradient(135deg,#FF4FA3,#9D4FFF); border-color: transparent; color: #fff; }
 
+    /* ── TOOLBAR ── */
+    .catalog-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding: 10px 16px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; flex-wrap: wrap; }
+    .toolbar-filters-btn { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.65); padding: 7px 14px; border-radius: 8px; font-family: 'Jost', sans-serif; font-size: .78rem; letter-spacing: 1px; cursor: pointer; transition: all .2s; white-space: nowrap; }
+    .toolbar-filters-btn:hover, .toolbar-filters-btn.active { border-color: rgba(255,79,163,.45); color: #FF4FA3; }
+    .toolbar-filters-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .toolbar-count { font-family: 'Jost', sans-serif; font-size: .78rem; color: rgba(255,255,255,.3); letter-spacing: 1px; flex: 1; }
+    .toolbar-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    .sort-select { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.7); padding: 7px 36px 7px 14px; border-radius: 8px; font-family: 'Jost', sans-serif; font-size: .78rem; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; transition: border-color .2s; }
+    .sort-select:focus { border-color: rgba(255,79,163,.4); }
+    .sort-select option { background: #111; }
+    .view-toggle { display: flex; gap: 4px; }
+    .view-btn { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); color: rgba(255,255,255,.35); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; }
+    .view-btn:hover, .view-btn.active { background: rgba(255,79,163,.1); border-color: rgba(255,79,163,.35); color: #FF4FA3; }
+    .view-btn svg { width: 14px; height: 14px; }
+
+    /* ── MAIN LAYOUT ── */
+    .catalog-main { display: flex; gap: 24px; align-items: flex-start; }
+
+    /* ── SIDEBAR FILTERS ── */
+    .catalog-sidebar { width: 256px; flex-shrink: 0; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); border-radius: 16px; padding: 24px; position: sticky; top: 100px; display: none; }
+    .catalog-sidebar.open { display: block; }
+    .catalog-content-wrap { flex: 1; min-width: 0; }
+
+    .filter-block { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.05); }
+    .filter-block:last-of-type { border-bottom: none; margin-bottom: 12px; padding-bottom: 0; }
+    .filter-block-title { font-family: 'Jost', sans-serif; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 16px; }
+
+    /* Dual range slider */
+    .dual-range { position: relative; height: 24px; margin-bottom: 10px; }
+    .dual-range-track { position: absolute; top: 50%; transform: translateY(-50%); left: 0; right: 0; height: 3px; background: rgba(255,255,255,.1); border-radius: 2px; }
+    .dual-range-fill { position: absolute; height: 100%; background: linear-gradient(90deg,#FF4FA3,#9D4FFF); border-radius: 2px; }
+    .dual-range-input { position: absolute; width: 100%; height: 100%; top: 0; left: 0; appearance: none; -webkit-appearance: none; background: transparent; pointer-events: none; outline: none; margin: 0; }
+    .dual-range-input::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 2.5px solid #FF4FA3; cursor: pointer; pointer-events: all; box-shadow: 0 2px 8px rgba(255,79,163,.45); transition: transform .15s; }
+    .dual-range-input::-webkit-slider-thumb:hover { transform: scale(1.2); }
+    .dual-range-input::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 2.5px solid #FF4FA3; cursor: pointer; pointer-events: all; }
+    .price-labels { display: flex; justify-content: space-between; font-family: 'Jost', sans-serif; font-size: .82rem; color: rgba(255,255,255,.55); }
+
+    /* Checkbox */
+    .filter-checkbox { display: flex; align-items: center; gap: 10px; cursor: pointer; font-family: 'Jost', sans-serif; font-size: .84rem; color: rgba(255,255,255,.55); user-select: none; }
+    .filter-checkbox input { accent-color: #FF4FA3; width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+
+    /* Reset */
+    .filter-reset { width: 100%; background: transparent; border: 1px solid rgba(255,79,163,.3); color: rgba(255,79,163,.75); padding: 9px; border-radius: 8px; font-family: 'Jost', sans-serif; font-size: .78rem; letter-spacing: 1px; cursor: pointer; transition: all .2s; margin-top: 4px; }
+    .filter-reset:hover { background: rgba(255,79,163,.08); border-color: rgba(255,79,163,.5); }
+
+    /* ── GRID ── */
+    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
     .catalog-card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); border-radius: 16px; overflow: hidden; transition: transform .3s, border-color .3s; cursor: pointer; }
     .catalog-card:hover { transform: translateY(-6px); border-color: rgba(255,79,163,.3); }
     .catalog-card-img { aspect-ratio: 1; overflow: hidden; position: relative; }
     .catalog-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
     .catalog-card:hover .catalog-card-img img { transform: scale(1.05); }
-    .catalog-card-badge { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg,#FF4FA3,#9D4FFF); color: #fff; font-family: 'Jost', sans-serif; font-size: .65rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 50px; }
-    .catalog-card-body { padding: 20px; }
-    .catalog-card-cat { font-family: 'Jost', sans-serif; font-size: .7rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,79,163,.8); margin-bottom: 6px; }
-    .catalog-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #fff; margin-bottom: 4px; line-height: 1.3; }
-    .catalog-card-desc { font-family: 'Inter', sans-serif; font-size: .8rem; color: rgba(255,255,255,.4); margin-bottom: 16px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .catalog-card-footer { display: flex; align-items: center; justify-content: space-between; }
-    .catalog-card-price { font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
-    .catalog-card-price span { font-size: .75rem; font-weight: 300; color: rgba(255,255,255,.4); }
-    .btn-add-cart { background: linear-gradient(135deg,#FF4FA3,#9D4FFF); border: none; color: #fff; padding: 8px 18px; border-radius: 50px; font-family: 'Jost', sans-serif; font-size: .75rem; letter-spacing: 1px; cursor: pointer; transition: opacity .3s; }
-    .btn-add-cart:hover { opacity: .85; }
+    .catalog-card-badge { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg,#FF4FA3,#9D4FFF); color: #fff; font-family: 'Jost', sans-serif; font-size: .6rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 50px; }
+    .catalog-card-body { padding: 16px; }
+    .catalog-card-cat { font-family: 'Jost', sans-serif; font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,79,163,.8); margin-bottom: 5px; }
+    .catalog-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: #fff; margin-bottom: 4px; line-height: 1.3; }
+    .catalog-card-desc { font-family: 'Inter', sans-serif; font-size: .78rem; color: rgba(255,255,255,.4); margin-bottom: 14px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .catalog-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .catalog-card-price { font-family: 'Jost', sans-serif; font-size: 1rem; font-weight: 600; color: #fff; white-space: nowrap; }
+    .catalog-card-price span { font-size: .7rem; font-weight: 300; color: rgba(255,255,255,.4); }
+    .btn-add-cart { background: linear-gradient(135deg,#FF4FA3,#9D4FFF); border: none; color: #fff; padding: 7px 14px; border-radius: 50px; font-family: 'Jost', sans-serif; font-size: .7rem; letter-spacing: 1px; cursor: pointer; transition: opacity .3s; white-space: nowrap; flex-shrink: 0; }
+    .btn-add-cart:hover { opacity: .82; }
 
-    .catalog-empty { text-align: center; padding: 80px 20px; color: rgba(255,255,255,.3); font-family: 'Jost', sans-serif; }
+    /* ── LIST VIEW ── */
+    .catalog-grid.list-view { grid-template-columns: 1fr !important; gap: 12px; }
+    .catalog-grid.list-view .catalog-card { display: flex; flex-direction: row; }
+    .catalog-grid.list-view .catalog-card-img { width: 130px; min-width: 130px; aspect-ratio: auto; height: 130px; }
+    .catalog-grid.list-view .catalog-card-body { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .catalog-grid.list-view .catalog-card-name { font-size: 1.2rem; }
+    .catalog-grid.list-view .catalog-card-desc { -webkit-line-clamp: 3; }
+
+    /* ── EMPTY / LOADING ── */
+    .catalog-empty { text-align: center; padding: 80px 20px; color: rgba(255,255,255,.3); font-family: 'Jost', sans-serif; font-size: .9rem; }
     .catalog-loading { text-align: center; padding: 80px 20px; }
     .catalog-loading .spinner { width: 40px; height: 40px; border: 2px solid rgba(255,79,163,.2); border-top-color: #FF4FA3; border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 16px; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .catalog-loading p { color: rgba(255,255,255,.4); font-family: 'Jost', sans-serif; font-size: .85rem; letter-spacing: 2px; }
 
-    @media (max-width: 768px) { .catalog-page { padding: 100px 20px 60px; } .catalog-grid { gap: 16px; } }
-    @media (max-width: 480px) { .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } .catalog-card-body { padding: 14px; } }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .catalog-sidebar { width: 220px; }
+    }
+    @media (max-width: 768px) {
+      .catalog-page { padding: 90px 16px 60px; }
+      .catalog-header { margin-bottom: 32px; }
+      .catalog-header h1 { font-size: clamp(1.6rem, 7vw, 2.8rem); }
+      .catalog-controls { gap: 6px; margin-bottom: 20px; }
+      .filter-btn { padding: 6px 12px; font-size: .7rem; }
+      .catalog-search { margin-bottom: 20px; }
+      .catalog-search input { font-size: .85rem; padding: 10px 18px; }
+      .catalog-toolbar { gap: 8px; padding: 8px 12px; }
+      .toolbar-count { display: none; }
+      .catalog-sidebar { width: 100%; position: static; margin-bottom: 16px; }
+      .catalog-main { flex-direction: column; gap: 0; }
+      .catalog-grid { gap: 12px; }
+      .sort-select { font-size: .72rem; padding: 6px 28px 6px 10px; }
+    }
+    @media (max-width: 480px) {
+      .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .catalog-card-body { padding: 10px; }
+      .catalog-card-name { font-size: .95rem; }
+      .catalog-card-price { font-size: .9rem; }
+      .btn-add-cart { padding: 5px 10px; font-size: .65rem; }
+      .catalog-grid.list-view .catalog-card-img { width: 100px; min-width: 100px; height: 100px; }
+    }
+    @media (max-width: 375px) {
+      .catalog-page { padding: 86px 12px 48px; }
+      .catalog-grid { grid-template-columns: 1fr; }
+      .catalog-card-img { aspect-ratio: 4/3; }
+    }
   </style>
 </head>
 <body>
@@ -77,11 +164,53 @@
       </div>
     </a>
     <nav class="nav-links" id="navLinks">
-      <a href="/products.html" class="active">Продукти</a>
-      <a href="/#categories">Каталог</a>
-      <a href="/#gallery">Галерея</a>
-      <a href="https://www.instagram.com/beauty_black_room_" target="_blank">Instagram</a>
-      <a href="/#contacts">Контакти</a>
+      <div class="nav-item has-mega">
+        <a href="/products.html?category=face" class="nav-link">Обличчя <svg class="nav-chev" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu">
+          <div class="mega-head"><span class="mega-head-title">Догляд за обличчям</span><a href="/products.html?category=face" class="mega-see-all">Всі товари →</a></div>
+          <div class="mega-body">
+            <div class="mega-col"><a href="/products.html?category=face">Очищення</a><a href="/products.html?category=face">Крем для обличчя</a><a href="/products.html?category=face">Маски для обличчя</a><a href="/products.html?category=face">Засоби для губ</a><a href="/products.html?category=face">Догляд за шиєю</a><a href="/products.html?category=face">Мініатюри</a></div>
+            <div class="mega-col"><a href="/products.html?category=face">Ексфоліація</a><a href="/products.html?category=face">Сироватка / есенція</a><a href="/products.html?category=face">Акне / висипання</a><a href="/products.html?category=face">Автозасмага</a><a href="/products.html?category=face">Макіяж</a></div>
+            <div class="mega-col"><a href="/products.html?category=face">Тонізація</a><a href="/products.html?category=face">Навколо очей</a><a href="/products.html?category=face">SPF / сонцезахист</a><a href="/products.html?category=face">Брови / вії</a><a href="/products.html?category=face">Набори</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item has-mega">
+        <a href="/products.html?category=hair" class="nav-link">Волосся <svg class="nav-chev" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu">
+          <div class="mega-head"><span class="mega-head-title">Догляд за волоссям</span><a href="/products.html?category=hair" class="mega-see-all">Всі товари →</a></div>
+          <div class="mega-body">
+            <div class="mega-col"><a href="/products.html?category=hair">Шампунь</a><a href="/products.html?category=hair">Незмивні засоби</a><a href="/products.html?category=hair">Аксесуари</a><a href="/products.html?category=hair">Мініатюри</a></div>
+            <div class="mega-col"><a href="/products.html?category=hair">Кондиціонер</a><a href="/products.html?category=hair">Догляд за шкірою голови</a><a href="/products.html?category=hair">Термоприлади</a></div>
+            <div class="mega-col"><a href="/products.html?category=hair">Маска</a><a href="/products.html?category=hair">Стайлінг</a><a href="/products.html?category=hair">Набори</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item has-mega">
+        <a href="/products.html?category=body" class="nav-link">Тіло <svg class="nav-chev" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu">
+          <div class="mega-head"><span class="mega-head-title">Догляд за тілом</span><a href="/products.html?category=body" class="mega-see-all">Всі товари →</a></div>
+          <div class="mega-body">
+            <div class="mega-col"><a href="/products.html?category=body">Молочко для тіла</a><a href="/products.html?category=body">Скраби</a><a href="/products.html?category=body">Олія для тіла</a><a href="/products.html?category=body">Мило</a></div>
+            <div class="mega-col"><a href="/products.html?category=body">Антицелюліт</a><a href="/products.html?category=body">Дезодоранти</a><a href="/products.html?category=body">Гель для душу</a></div>
+            <div class="mega-col"><a href="/products.html?category=body">Сонцезахист</a><a href="/products.html?category=body">Набори</a><a href="/products.html?category=body">Мініатюри</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item has-mega">
+        <a href="/products.html?category=men" class="nav-link">Чоловіки <svg class="nav-chev" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu">
+          <div class="mega-head"><span class="mega-head-title">Для чоловіків</span><a href="/products.html?category=men" class="mega-see-all">Всі товари →</a></div>
+          <div class="mega-body">
+            <div class="mega-col"><a href="/products.html?category=men">Догляд за обличчям</a><a href="/products.html?category=men">Гоління</a><a href="/products.html?category=men">Волосся</a></div>
+            <div class="mega-col"><a href="/products.html?category=men">Тіло</a><a href="/products.html?category=men">Дезодоранти</a></div>
+            <div class="mega-col"><a href="/products.html?category=men">Парфуми</a><a href="/products.html?category=men">Набори</a></div>
+          </div>
+        </div>
+      </div>
+      <a href="/products.html?category=perfumes" class="nav-link">Парфуми</a>
+      <a href="/products.html?category=sale" class="nav-link sale-link">Sale</a>
+      <a href="/#contacts" class="nav-link">Контакти</a>
     </nav>
     <div class="nav-r">
       <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="nav-ig mag" aria-label="Instagram">
@@ -99,11 +228,18 @@
   <!-- MOBILE MENU -->
   <div class="mob-menu" id="mobMenu">
     <nav class="mob-nav">
-      <a href="/products.html">Продукти</a>
-      <a href="/#categories">Каталог</a>
-      <a href="/#gallery">Галерея</a>
-      <a href="https://www.instagram.com/beauty_black_room_" target="_blank">Instagram</a>
+      <div class="mob-section-title">Категорії</div>
+      <a href="/products.html?category=face">Обличчя</a>
+      <a href="/products.html?category=hair">Волосся</a>
+      <a href="/products.html?category=body">Тіло</a>
+      <a href="/products.html?category=men">Чоловіки</a>
+      <a href="/products.html?category=perfumes">Парфуми</a>
+      <a href="/products.html?category=kids">Діти</a>
+      <a href="/products.html?category=home">Дім</a>
+      <a href="/products.html?category=sale" class="mob-sale">Sale</a>
+      <div class="mob-divider"></div>
       <a href="/#contacts">Контакти</a>
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank">Instagram</a>
     </nav>
   </div>
 
@@ -115,7 +251,7 @@
       <button class="cart-close" id="cartClose">✕</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
-    <div class="cart-foot">
+    <div class="cart-foot" id="cartFooter" style="display:none">
       <div class="cart-total-row"><span>Разом</span><span id="cartTotal">0 ₴</span></div>
       <a href="tel:+380995566006" class="btn btn-pink" style="width:100%;text-align:center;display:block;">Замовити по телефону</a>
     </div>
@@ -144,11 +280,76 @@
       <button class="filter-btn" data-cat="sale">Розпродаж</button>
     </div>
 
-    <div id="catalogContent">
-      <div class="catalog-loading">
-        <div class="spinner"></div>
-        <p>Завантаження товарів...</p>
+    <!-- TOOLBAR -->
+    <div class="catalog-toolbar">
+      <button class="toolbar-filters-btn" id="toggleFilters">
+        <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <line x1="0" y1="2" x2="16" y2="2"/><line x1="3" y1="6" x2="13" y2="6"/><line x1="6" y1="10" x2="10" y2="10"/>
+        </svg>
+        Фільтри
+      </button>
+      <span class="toolbar-count" id="productCount"></span>
+      <div class="toolbar-right">
+        <select class="sort-select" id="sortSelect">
+          <option value="">Сортування</option>
+          <option value="price-asc">Ціна: дешевше</option>
+          <option value="price-desc">Ціна: дорожче</option>
+          <option value="name-asc">Назва А → Я</option>
+          <option value="name-desc">Назва Я → А</option>
+        </select>
+        <div class="view-toggle">
+          <button class="view-btn active" id="viewGrid" title="Сітка">
+            <svg viewBox="0 0 14 14" fill="currentColor"><rect x="0" y="0" width="6" height="6" rx="1"/><rect x="8" y="0" width="6" height="6" rx="1"/><rect x="0" y="8" width="6" height="6" rx="1"/><rect x="8" y="8" width="6" height="6" rx="1"/></svg>
+          </button>
+          <button class="view-btn" id="viewList" title="Список">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="0" y1="2" x2="14" y2="2"/><line x1="0" y1="7" x2="14" y2="7"/><line x1="0" y1="12" x2="14" y2="12"/></svg>
+          </button>
+        </div>
       </div>
+    </div>
+
+    <!-- MAIN: SIDEBAR + GRID -->
+    <div class="catalog-main">
+
+      <!-- FILTER SIDEBAR -->
+      <aside class="catalog-sidebar" id="catalogSidebar">
+
+        <div class="filter-block">
+          <div class="filter-block-title">Ціна</div>
+          <div class="dual-range">
+            <div class="dual-range-track">
+              <div class="dual-range-fill" id="priceRangeFill"></div>
+            </div>
+            <input type="range" class="dual-range-input" id="priceMin" min="0" max="20000" value="0" step="50">
+            <input type="range" class="dual-range-input" id="priceMax" min="0" max="20000" value="20000" step="50">
+          </div>
+          <div class="price-labels">
+            <span id="priceMinLabel">0 ₴</span>
+            <span id="priceMaxLabel">20 000 ₴</span>
+          </div>
+        </div>
+
+        <div class="filter-block">
+          <div class="filter-block-title">Наявність</div>
+          <label class="filter-checkbox">
+            <input type="checkbox" id="inStockOnly">
+            <span>Тільки в наявності</span>
+          </label>
+        </div>
+
+        <button class="filter-reset" id="resetFilters">Скинути фільтри</button>
+      </aside>
+
+      <!-- PRODUCTS -->
+      <div class="catalog-content-wrap">
+        <div id="catalogContent">
+          <div class="catalog-loading">
+            <div class="spinner"></div>
+            <p>Завантаження товарів...</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
@@ -158,7 +359,7 @@
   <script src="js/main.js"></script>
   <script src="js/cart.js"></script>
   <script type="module">
-    import { db, collection, getDocs, query, where, orderBy }
+    import { db, collection, getDocs, query, where, limit }
       from './js/firebase-client.js';
 
     const CATEGORY_LABELS = {
@@ -168,28 +369,64 @@
     };
 
     let allProducts = [];
-    // Підхоплюємо категорію з URL (?category=face)
     let activeCategory = new URLSearchParams(window.location.search).get('category') || '';
     let searchTerm = '';
+    let sortMode = '';
+    let priceMin = 0;
+    let priceMax = 99999;
+    let inStockOnly = false;
+    let viewMode = 'grid';
 
+    /* ── LOAD ── */
     async function loadProducts() {
+      document.getElementById('catalogContent').innerHTML =
+        '<div class="catalog-loading"><div class="spinner"></div><p>Завантаження товарів...</p></div>';
       try {
-        const snap = await getDocs(query(collection(db, 'products'), orderBy('createdAt', 'desc')));
+        let q = activeCategory
+          ? query(collection(db, 'products'), where('category', '==', activeCategory), limit(200))
+          : query(collection(db, 'products'), limit(100));
+        const snap = await getDocs(q);
         allProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+        /* Set slider max from actual data */
+        const maxP = Math.max(...allProducts.map(p => p.price || 0), 1000);
+        const roundedMax = Math.ceil(maxP / 1000) * 1000;
+        ['priceMin', 'priceMax'].forEach(id => document.getElementById(id).max = roundedMax);
+        document.getElementById('priceMax').value = roundedMax;
+        priceMax = roundedMax;
+        document.getElementById('priceMaxLabel').textContent = roundedMax.toLocaleString('uk-UA') + ' ₴';
+        updateSliderFill();
+
         renderProducts();
       } catch (err) {
         document.getElementById('catalogContent').innerHTML =
-          `<div class="catalog-empty">Помилка завантаження: ${err.message}</div>`;
+          `<div class="catalog-empty">Помилка: ${err.message}</div>`;
       }
     }
 
+    /* ── SORT ── */
+    function getSorted(arr) {
+      const r = [...arr];
+      if (sortMode === 'price-asc')  r.sort((a, b) => (a.price||0) - (b.price||0));
+      if (sortMode === 'price-desc') r.sort((a, b) => (b.price||0) - (a.price||0));
+      if (sortMode === 'name-asc')   r.sort((a, b) => a.name.localeCompare(b.name, 'uk'));
+      if (sortMode === 'name-desc')  r.sort((a, b) => b.name.localeCompare(a.name, 'uk'));
+      return r;
+    }
+
+    /* ── RENDER ── */
     function renderProducts() {
       let filtered = allProducts;
       if (activeCategory) filtered = filtered.filter(p => p.category === activeCategory);
-      if (searchTerm) filtered = filtered.filter(p =>
+      if (searchTerm)     filtered = filtered.filter(p =>
         p.name.toLowerCase().includes(searchTerm) ||
-        (p.description || '').toLowerCase().includes(searchTerm)
-      );
+        (p.description || '').toLowerCase().includes(searchTerm));
+      filtered = filtered.filter(p => (p.price || 0) >= priceMin && (p.price || 0) <= priceMax);
+      if (inStockOnly)    filtered = filtered.filter(p => p.inStock);
+      filtered = getSorted(filtered);
+
+      document.getElementById('productCount').textContent =
+        filtered.length + ' ' + plural(filtered.length, 'товар', 'товари', 'товарів');
 
       if (!filtered.length) {
         document.getElementById('catalogContent').innerHTML =
@@ -198,30 +435,35 @@
       }
 
       document.getElementById('catalogContent').innerHTML =
-        `<div class="catalog-grid">${filtered.map(cardHTML).join('')}</div>`;
+        `<div class="catalog-grid${viewMode === 'list' ? ' list-view' : ''}">${filtered.map(cardHTML).join('')}</div>`;
 
       document.querySelectorAll('.btn-add-cart').forEach(btn => {
         btn.addEventListener('click', e => {
           e.stopPropagation();
           const { id, name, price, img } = btn.dataset;
-          if (typeof addToCart === 'function') addToCart({ id, name: name, price: Number(price), img });
+          if (typeof addToCart === 'function') addToCart({ id, name, price: Number(price), img });
         });
       });
-
       document.querySelectorAll('.catalog-card').forEach(card => {
-        card.addEventListener('click', () => {
-          window.location.href = `/product.html?id=${card.dataset.id}`;
-        });
+        card.addEventListener('click', () => { window.location.href = `/product.html?id=${card.dataset.id}`; });
       });
+    }
+
+    function plural(n, one, few, many) {
+      const mod10 = n % 10, mod100 = n % 100;
+      if (mod10 === 1 && mod100 !== 11) return n + ' ' + one;
+      if ([2,3,4].includes(mod10) && ![12,13,14].includes(mod100)) return n + ' ' + few;
+      return n + ' ' + many;
     }
 
     function cardHTML(p) {
       const img = p.images?.[0] || 'images/hero.jpg';
-      const cat = CATEGORY_LABELS[p.category] || p.category;
+      const cat = CATEGORY_LABELS[p.category] || p.category || '';
+      const price = (p.price || 0).toLocaleString('uk-UA');
       return `
         <div class="catalog-card" data-id="${p.id}">
           <div class="catalog-card-img">
-            <img src="${img}" alt="${p.name}" loading="lazy" />
+            <img src="${img}" alt="${p.name}" loading="lazy"/>
             ${p.featured ? '<span class="catalog-card-badge">Хіт</span>' : ''}
           </div>
           <div class="catalog-card-body">
@@ -229,34 +471,105 @@
             <div class="catalog-card-name">${p.name}</div>
             <div class="catalog-card-desc">${p.description || ''}</div>
             <div class="catalog-card-footer">
-              <div class="catalog-card-price">${p.price.toLocaleString('uk-UA')} <span>₴</span></div>
-              <button class="btn-add-cart"
-                data-id="${p.id}" data-name="${p.name}"
-                data-price="${p.price}" data-img="${img}">
-                + Кошик
-              </button>
+              <div class="catalog-card-price">${price} <span>₴</span></div>
+              <button class="btn-add-cart" data-id="${p.id}" data-name="${p.name}" data-price="${p.price||0}" data-img="${img}">+ Кошик</button>
             </div>
           </div>
         </div>`;
     }
 
-    // Filters
+    /* ── PRICE SLIDER ── */
+    function updateSliderFill() {
+      const maxVal = +document.getElementById('priceMax').max || 20000;
+      const pct1 = (+document.getElementById('priceMin').value / maxVal) * 100;
+      const pct2 = (+document.getElementById('priceMax').value / maxVal) * 100;
+      document.getElementById('priceRangeFill').style.left = pct1 + '%';
+      document.getElementById('priceRangeFill').style.width = Math.max(0, pct2 - pct1) + '%';
+    }
+
+    document.getElementById('priceMin').addEventListener('input', function() {
+      if (+this.value > +document.getElementById('priceMax').value)
+        this.value = document.getElementById('priceMax').value;
+      priceMin = +this.value;
+      document.getElementById('priceMinLabel').textContent = priceMin.toLocaleString('uk-UA') + ' ₴';
+      updateSliderFill();
+      renderProducts();
+    });
+    document.getElementById('priceMax').addEventListener('input', function() {
+      if (+this.value < +document.getElementById('priceMin').value)
+        this.value = document.getElementById('priceMin').value;
+      priceMax = +this.value;
+      document.getElementById('priceMaxLabel').textContent = priceMax.toLocaleString('uk-UA') + ' ₴';
+      updateSliderFill();
+      renderProducts();
+    });
+    updateSliderFill();
+
+    /* ── IN STOCK ── */
+    document.getElementById('inStockOnly').addEventListener('change', function() {
+      inStockOnly = this.checked;
+      renderProducts();
+    });
+
+    /* ── RESET ── */
+    document.getElementById('resetFilters').addEventListener('click', () => {
+      priceMin = 0;
+      priceMax = +document.getElementById('priceMax').max;
+      document.getElementById('priceMin').value = 0;
+      document.getElementById('priceMax').value = priceMax;
+      document.getElementById('priceMinLabel').textContent = '0 ₴';
+      document.getElementById('priceMaxLabel').textContent = priceMax.toLocaleString('uk-UA') + ' ₴';
+      document.getElementById('inStockOnly').checked = false;
+      inStockOnly = false;
+      updateSliderFill();
+      renderProducts();
+    });
+
+    /* ── SORT ── */
+    document.getElementById('sortSelect').addEventListener('change', function() {
+      sortMode = this.value;
+      renderProducts();
+    });
+
+    /* ── VIEW TOGGLE ── */
+    document.getElementById('viewGrid').addEventListener('click', () => {
+      viewMode = 'grid';
+      document.getElementById('viewGrid').classList.add('active');
+      document.getElementById('viewList').classList.remove('active');
+      renderProducts();
+    });
+    document.getElementById('viewList').addEventListener('click', () => {
+      viewMode = 'list';
+      document.getElementById('viewList').classList.add('active');
+      document.getElementById('viewGrid').classList.remove('active');
+      renderProducts();
+    });
+
+    /* ── FILTER PANEL TOGGLE ── */
+    document.getElementById('toggleFilters').addEventListener('click', () => {
+      const sidebar = document.getElementById('catalogSidebar');
+      const btn = document.getElementById('toggleFilters');
+      sidebar.classList.toggle('open');
+      btn.classList.toggle('active');
+    });
+
+    /* ── CATEGORY BUTTONS ── */
     document.getElementById('filterBtns').addEventListener('click', e => {
       const btn = e.target.closest('.filter-btn');
       if (!btn) return;
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeCategory = btn.dataset.cat;
-      renderProducts();
+      loadProducts();
     });
 
-    // Search
+    /* ── SEARCH ── */
     document.getElementById('searchInput').addEventListener('input', e => {
       searchTerm = e.target.value.toLowerCase().trim();
       renderProducts();
     });
 
-    // Підсвічуємо активну кнопку фільтра
+    /* ── INIT ── */
     document.querySelectorAll('.filter-btn').forEach(btn => {
       if (btn.dataset.cat === activeCategory) btn.classList.add('active');
     });

@@ -43,8 +43,22 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .product-loading p { color: rgba(255,255,255,.4); font-family: 'Jost', sans-serif; }
 
-    @media (max-width: 900px) { .product-layout { grid-template-columns: 1fr; gap: 40px; } .product-gallery { position: static; } }
-    @media (max-width: 480px) { .product-page { padding: 90px 20px 60px; } }
+    @media (max-width: 900px) {
+      .product-layout { grid-template-columns: 1fr; gap: 32px; }
+      .product-gallery { position: static; }
+      .product-page { padding: 100px 32px 60px; }
+    }
+    @media (max-width: 768px) {
+      .product-page { padding: 90px 20px 60px; max-width: 100%; }
+      .product-name { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+      .product-price { font-size: 1.6rem; }
+    }
+    @media (max-width: 480px) {
+      .product-page { padding: 86px 16px 48px; }
+      .product-actions { flex-direction: column; }
+      .btn-cart-big, .btn-call { width: 100%; text-align: center; justify-content: center; }
+      .product-thumb { width: 56px; height: 56px; }
+    }
 
     .CATEGORY_LABELS { display: none; }
   </style>
@@ -71,11 +85,53 @@
       </div>
     </a>
     <nav class="nav-links" id="navLinks">
-      <a href="/products.html">Продукти</a>
-      <a href="/#categories">Каталог</a>
-      <a href="/#gallery">Галерея</a>
-      <a href="https://www.instagram.com/beauty_black_room_" target="_blank">Instagram</a>
-      <a href="/#contacts">Контакти</a>
+      <div class="nav-item has-mega">
+        <a href="/products.html?category=face" class="nav-link">Обличчя <svg class="nav-chev" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu">
+          <div class="mega-head"><span class="mega-head-title">Догляд за обличчям</span><a href="/products.html?category=face" class="mega-see-all">Всі товари →</a></div>
+          <div class="mega-body">
+            <div class="mega-col"><a href="/products.html?category=face">Очищення</a><a href="/products.html?category=face">Крем для обличчя</a><a href="/products.html?category=face">Маски для обличчя</a><a href="/products.html?category=face">Засоби для губ</a><a href="/products.html?category=face">Догляд за шиєю</a><a href="/products.html?category=face">Мініатюри</a></div>
+            <div class="mega-col"><a href="/products.html?category=face">Ексфоліація</a><a href="/products.html?category=face">Сироватка / есенція</a><a href="/products.html?category=face">Акне / висипання</a><a href="/products.html?category=face">Автозасмага</a><a href="/products.html?category=face">Макіяж</a></div>
+            <div class="mega-col"><a href="/products.html?category=face">Тонізація</a><a href="/products.html?category=face">Навколо очей</a><a href="/products.html?category=face">SPF / сонцезахист</a><a href="/products.html?category=face">Брови / вії</a><a href="/products.html?category=face">Набори</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item has-mega">
+        <a href="/products.html?category=hair" class="nav-link">Волосся <svg class="nav-chev" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu">
+          <div class="mega-head"><span class="mega-head-title">Догляд за волоссям</span><a href="/products.html?category=hair" class="mega-see-all">Всі товари →</a></div>
+          <div class="mega-body">
+            <div class="mega-col"><a href="/products.html?category=hair">Шампунь</a><a href="/products.html?category=hair">Незмивні засоби</a><a href="/products.html?category=hair">Аксесуари</a><a href="/products.html?category=hair">Мініатюри</a></div>
+            <div class="mega-col"><a href="/products.html?category=hair">Кондиціонер</a><a href="/products.html?category=hair">Догляд за шкірою голови</a><a href="/products.html?category=hair">Термоприлади</a></div>
+            <div class="mega-col"><a href="/products.html?category=hair">Маска</a><a href="/products.html?category=hair">Стайлінг</a><a href="/products.html?category=hair">Набори</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item has-mega">
+        <a href="/products.html?category=body" class="nav-link">Тіло <svg class="nav-chev" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu">
+          <div class="mega-head"><span class="mega-head-title">Догляд за тілом</span><a href="/products.html?category=body" class="mega-see-all">Всі товари →</a></div>
+          <div class="mega-body">
+            <div class="mega-col"><a href="/products.html?category=body">Молочко для тіла</a><a href="/products.html?category=body">Скраби</a><a href="/products.html?category=body">Олія для тіла</a><a href="/products.html?category=body">Мило</a></div>
+            <div class="mega-col"><a href="/products.html?category=body">Антицелюліт</a><a href="/products.html?category=body">Дезодоранти</a><a href="/products.html?category=body">Гель для душу</a></div>
+            <div class="mega-col"><a href="/products.html?category=body">Сонцезахист</a><a href="/products.html?category=body">Набори</a><a href="/products.html?category=body">Мініатюри</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item has-mega">
+        <a href="/products.html?category=men" class="nav-link">Чоловіки <svg class="nav-chev" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="mega-menu">
+          <div class="mega-head"><span class="mega-head-title">Для чоловіків</span><a href="/products.html?category=men" class="mega-see-all">Всі товари →</a></div>
+          <div class="mega-body">
+            <div class="mega-col"><a href="/products.html?category=men">Догляд за обличчям</a><a href="/products.html?category=men">Гоління</a><a href="/products.html?category=men">Волосся</a></div>
+            <div class="mega-col"><a href="/products.html?category=men">Тіло</a><a href="/products.html?category=men">Дезодоранти</a></div>
+            <div class="mega-col"><a href="/products.html?category=men">Парфуми</a><a href="/products.html?category=men">Набори</a></div>
+          </div>
+        </div>
+      </div>
+      <a href="/products.html?category=perfumes" class="nav-link">Парфуми</a>
+      <a href="/products.html?category=sale" class="nav-link sale-link">Sale</a>
+      <a href="/#contacts" class="nav-link">Контакти</a>
     </nav>
     <div class="nav-r">
       <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="nav-ig mag" aria-label="Instagram">
@@ -92,11 +148,18 @@
 
   <div class="mob-menu" id="mobMenu">
     <nav class="mob-nav">
-      <a href="/products.html">Продукти</a>
-      <a href="/#categories">Каталог</a>
-      <a href="/#gallery">Галерея</a>
-      <a href="https://www.instagram.com/beauty_black_room_" target="_blank">Instagram</a>
+      <div class="mob-section-title">Категорії</div>
+      <a href="/products.html?category=face">Обличчя</a>
+      <a href="/products.html?category=hair">Волосся</a>
+      <a href="/products.html?category=body">Тіло</a>
+      <a href="/products.html?category=men">Чоловіки</a>
+      <a href="/products.html?category=perfumes">Парфуми</a>
+      <a href="/products.html?category=kids">Діти</a>
+      <a href="/products.html?category=home">Дім</a>
+      <a href="/products.html?category=sale" class="mob-sale">Sale</a>
+      <div class="mob-divider"></div>
       <a href="/#contacts">Контакти</a>
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank">Instagram</a>
     </nav>
   </div>
 
@@ -107,7 +170,7 @@
       <button class="cart-close" id="cartClose">✕</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
-    <div class="cart-foot">
+    <div class="cart-foot" id="cartFooter" style="display:none">
       <div class="cart-total-row"><span>Разом</span><span id="cartTotal">0 ₴</span></div>
       <a href="tel:+380995566006" class="btn btn-pink" style="width:100%;text-align:center;display:block;">Замовити по телефону</a>
     </div>

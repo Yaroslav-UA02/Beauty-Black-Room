@@ -117,7 +117,26 @@
     .admin-toast.success { border-color: rgba(79,255,157,.3); color: #4fff9d; }
     .admin-toast.error { border-color: rgba(255,60,60,.3); color: #ff6b6b; }
 
-    @media (max-width: 768px) { .admin-body { padding: 20px; } .modal-grid { grid-template-columns: 1fr; } .admin-header { flex-wrap: wrap; gap: 12px; } }
+    @media (max-width: 768px) {
+      .admin-body { padding: 16px; }
+      .modal-grid { grid-template-columns: 1fr; }
+      .admin-header { flex-wrap: wrap; gap: 10px; padding: 12px 16px; }
+      .admin-nav { overflow-x: auto; padding-bottom: 4px; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+      .admin-nav-btn { white-space: nowrap; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+      .stat-value { font-size: 2rem; }
+      .products-table-wrap { font-size: .82rem; }
+      thead th, tbody td { padding: 10px 12px; }
+      .td-name { max-width: 120px; }
+    }
+    @media (max-width: 480px) {
+      .admin-body { padding: 12px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .admin-nav-btn { padding: 6px 10px; font-size: .78rem; }
+      .section-head { flex-direction: column; align-items: flex-start; }
+      .modal { padding: 24px 20px; }
+      .login-box { padding: 32px 24px; }
+    }
   </style>
 </head>
 <body>

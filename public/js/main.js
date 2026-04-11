@@ -6,19 +6,22 @@
 const pre = document.getElementById('pre');
 const preFill = document.getElementById('preFill');
 const prePct = document.getElementById('prePct');
-let pn = 0;
-const pT = setInterval(() => {
-  pn += Math.floor(Math.random() * 12) + 4;
-  if (pn >= 100) { pn = 100; clearInterval(pT); }
-  preFill.style.width = pn + '%';
-  prePct.textContent = pn + ' %';
-  if (pn === 100) setTimeout(() => {
-    pre.classList.add('gone');
-    document.body.style.overflow = '';
-    if (typeof initScrollAnimations === 'function') initScrollAnimations();
-  }, 400);
-}, 50);
-document.body.style.overflow = 'hidden';
+
+if (pre && preFill && prePct) {
+  let pn = 0;
+  document.body.style.overflow = 'hidden';
+  const pT = setInterval(() => {
+    pn += Math.floor(Math.random() * 12) + 4;
+    if (pn >= 100) { pn = 100; clearInterval(pT); }
+    preFill.style.width = pn + '%';
+    prePct.textContent = pn + ' %';
+    if (pn === 100) setTimeout(() => {
+      pre.classList.add('gone');
+      document.body.style.overflow = '';
+      if (typeof initScrollAnimations === 'function') initScrollAnimations();
+    }, 400);
+  }, 50);
+}
 
 /* ── CURSOR ── */
 const dot = document.getElementById('cur-dot');
@@ -60,13 +63,53 @@ document.querySelectorAll('.mag').forEach(b => {
 
 /* ── HEADER ── */
 const hdr = document.getElementById('header');
+const promoBanner = document.querySelector('.promo-banner');
 let lastY = 0;
 window.addEventListener('scroll', () => {
   const sy = scrollY;
+  const hidePromo = sy > 40;
   hdr.classList.toggle('glow', sy > 50);
   hdr.classList.toggle('shrink', sy > 120);
+  hdr.classList.toggle('no-promo', hidePromo);
+  if (promoBanner) promoBanner.classList.toggle('hidden', hidePromo);
   lastY = sy;
 }, { passive: true });
+
+/* ── MEGA MENU ── */
+let megaTimer;
+document.querySelectorAll('.has-mega').forEach(item => {
+  const menu = item.querySelector('.mega-menu');
+  if (!menu) return;
+
+  const open = () => {
+    clearTimeout(megaTimer);
+    document.querySelectorAll('.has-mega').forEach(i => {
+      if (i !== item) { i.classList.remove('open'); i.querySelector('.mega-menu')?.classList.remove('open'); }
+    });
+    item.classList.add('open');
+    menu.classList.add('open');
+  };
+  const close = () => {
+    megaTimer = setTimeout(() => {
+      item.classList.remove('open');
+      menu.classList.remove('open');
+    }, 120);
+  };
+
+  item.addEventListener('mouseenter', open);
+  item.addEventListener('mouseleave', close);
+  menu.addEventListener('mouseenter', () => clearTimeout(megaTimer));
+  menu.addEventListener('mouseleave', close);
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.has-mega')) {
+    document.querySelectorAll('.has-mega').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.mega-menu')?.classList.remove('open');
+    });
+  }
+});
 
 /* ── BURGER ── */
 const burger = document.getElementById('burger');

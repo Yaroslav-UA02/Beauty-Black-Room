@@ -46,12 +46,16 @@ const Cart = {
 };
 Cart.updateUI();
 
-document.querySelectorAll('.add-to-cart').forEach(btn => {
-  btn.addEventListener('click', e => {
-    e.preventDefault();
-    const c = btn.closest('.p-card');
-    if (c) Cart.add({ name: c.dataset.name, price: +c.dataset.price, img: c.dataset.img });
-  });
+/* Global helper called from inline module scripts */
+window.addToCart = p => Cart.add(p);
+
+/* Static .add-to-cart buttons (index.html hardcoded cards, if any) */
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.add-to-cart');
+  if (!btn) return;
+  e.preventDefault();
+  const c = btn.closest('.p-card');
+  if (c) Cart.add({ name: c.dataset.name, price: +c.dataset.price, img: c.dataset.img || '' });
 });
 
 const cartToggle = document.getElementById('cartToggle');
