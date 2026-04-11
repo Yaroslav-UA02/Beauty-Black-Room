@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beauty Black Room — Оригінальна косметика та парфуми в Мукачево</title>
+  <meta name="description" content="Beauty Black Room — магазин оригінальної косметики, парфумерії та засобів догляду в Мукачево. Преміальні бренди, трендові новинки." />
+  <meta property="og:title" content="Beauty Black Room — Косметика та парфуми" />
+  <meta property="og:description" content="Магазин оригінальної косметики, парфумерії та засобів догляду в Мукачево." />
+  <meta property="og:image" content="images/hero.jpg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- GRAIN OVERLAY -->
+  <div id="grain" aria-hidden="true"></div>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cur-dot"></div>
+  <div id="cur-ring"><span id="curLabel"></span></div>
+
+  <!-- ══════════ PRELOADER ══════════ -->
+  <div id="pre">
+    <svg class="pre-logo-svg" viewBox="0 0 100 100" fill="none">
+      <defs><linearGradient id="preLG" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop stop-color="#FF4FA3"/><stop offset="1" stop-color="#9D4FFF"/></linearGradient></defs>
+      <circle cx="50" cy="50" r="47" stroke="url(#preLG)" stroke-width="1" opacity=".3"/>
+      <text x="50" y="58" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="30" font-weight="300" fill="white" letter-spacing="4">BR</text>
+    </svg>
+    <div class="pre-bar"><div class="pre-fill" id="preFill"></div></div>
+    <div class="pre-pct" id="prePct">0 %</div>
+  </div>
+
+
+  <!-- ══════════ HEADER ══════════ -->
+  <header class="header" id="header">
+    <a href="#" class="logo">
+      <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
+        <defs><linearGradient id="hLG" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop stop-color="#FF4FA3"/><stop offset=".5" stop-color="#CF4FE8"/><stop offset="1" stop-color="#9D4FFF"/></linearGradient></defs>
+        <circle cx="50" cy="50" r="47" stroke="url(#hLG)" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="40" stroke="rgba(255,79,163,.12)" stroke-width=".75"/>
+        <text x="50" y="57" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="28" font-weight="300" fill="white" letter-spacing="4">BR</text>
+        <line x1="26" y1="64" x2="74" y2="64" stroke="url(#hLG)" stroke-width=".8"/>
+        <text x="50" y="73" text-anchor="middle" font-family="Jost,system-ui,sans-serif" font-size="5" font-weight="500" fill="rgba(255,255,255,.45)" letter-spacing="3">BEAUTY · ROOM</text>
+        <circle cx="50" cy="4.5" r="1.8" fill="url(#hLG)"/><circle cx="50" cy="95.5" r="1.8" fill="url(#hLG)"/><circle cx="4.5" cy="50" r="1.8" fill="url(#hLG)"/><circle cx="95.5" cy="50" r="1.8" fill="url(#hLG)"/>
+      </svg>
+      <div>
+        <div class="logo-name">Beauty Black Room</div>
+        <div class="logo-city">Мукачево</div>
+      </div>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="/products.html">Продукти</a>
+      <a href="#categories">Каталог</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#instagram">Instagram</a>
+      <a href="#contacts">Контакти</a>
+    </nav>
+    <div class="nav-r">
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="nav-ig mag" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <button class="cart-toggle mag" id="cartToggle" aria-label="Кошик">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="tel:+380995566006" class="btn btn-pink btn-sm mag">Подзвонити</a>
+      <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-menu" id="mobMenu">
+    <nav class="mob-nav">
+      <a href="/products.html">Продукти</a>
+      <a href="#categories">Каталог</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#instagram">Instagram</a>
+      <a href="#contacts">Контакти</a>
+    </nav>
+  </div>
+
+
+  <!-- ══════════ PROMO BANNER ══════════ -->
+  <div class="promo-banner" id="promoBanner">
+    <div class="promo-track">
+      <span>SALE -20% на всю парфумерію до кінця місяця</span>
+      <span>Безкоштовна доставка від 1000 ₴</span>
+      <span>Нова колекція Sol de Janeiro вже в наявності</span>
+      <span>SALE -20% на всю парфумерію до кінця місяця</span>
+      <span>Безкоштовна доставка від 1000 ₴</span>
+      <span>Нова колекція Sol de Janeiro вже в наявності</span>
+    </div>
+  </div>
+
+  <!-- ══════════ 1 · HERO — VIDEO CENTER ══════════ -->
+  <section class="hero" id="home">
+    <div class="hero-layout">
+      <!-- LEFT: text -->
+      <div class="hero-left">
+        <p class="tag hero-tag">Beauty · Black · Room</p>
+        <h1 class="hero-h1" id="heroH1">
+          <span class="h1-line"><span class="h1-word">Твій</span></span>
+          <span class="h1-line"><span class="h1-word">преміальний</span></span>
+        </h1>
+      </div>
+
+      <!-- CENTER: Giraffe mascot -->
+      <div class="hero-giraffe" id="heroGiraffe">
+        <img src="images/giraffe.png" alt="Beauty Black Room Giraffe" class="giraffe-img" />
+        <div class="hero-giraffe-glow"></div>
+      </div>
+
+      <!-- RIGHT: text -->
+      <div class="hero-right">
+        <h1 class="hero-h1 hero-h1-r" id="heroH1r">
+          <span class="h1-line"><span class="h1-word"><em>beauty</em></span></span>
+          <span class="h1-line"><span class="h1-word">простір</span></span>
+        </h1>
+        <p class="hero-sub" id="heroSub">Оригінальна косметика,<br/>парфумерія та догляд</p>
+      </div>
+    </div>
+
+    <!-- bottom bar -->
+    <div class="hero-bottom" id="heroBtns">
+      <p class="hero-loc">Мукачево · вул. Ілони Зріні 5/2</p>
+      <div class="hero-btns">
+        <a href="#products" class="btn btn-pink mag">Каталог</a>
+        <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="btn btn-glass mag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-line" id="scrollLine"><span></span></div>
+  </section>
+
+
+  <!-- ══════════ 2 · TEXT MARQUEE ══════════ -->
+  <div class="marquee-text">
+    <div class="marquee-text-track">
+      <span>Beauty · Black · Room · Оригінал · Мукачево · Преміум · Beauty · Black · Room · Оригінал · Мукачево · Преміум · Beauty · Black · Room · Оригінал · Мукачево · Преміум · </span>
+      <span>Beauty · Black · Room · Оригінал · Мукачево · Преміум · Beauty · Black · Room · Оригінал · Мукачево · Преміум · Beauty · Black · Room · Оригінал · Мукачево · Преміум · </span>
+    </div>
+  </div>
+
+
+  <!-- ══════════ 3 · BENEFITS — HORIZONTAL TICKER ══════════ -->
+  <section class="benefits" id="benefits">
+    <div class="benefits-grid">
+      <div class="b-item"><span class="b-num">01</span><div class="b-line"></div><h3>Оригінальна продукція</h3><p>Тільки справжні бренди, без підробок</p></div>
+      <div class="b-item"><span class="b-num">02</span><div class="b-line"></div><h3>Трендові новинки</h3><p>Актуальний асортимент щомісяця</p></div>
+      <div class="b-item"><span class="b-num">03</span><div class="b-line"></div><h3>Великий вибір</h3><p>500+ позицій, 30+ брендів</p></div>
+      <div class="b-item"><span class="b-num">04</span><div class="b-line"></div><h3>Швидкий підбір</h3><p>Підберемо під ваш тип та потреби</p></div>
+      <div class="b-item"><span class="b-num">05</span><div class="b-line"></div><h3>Стильний простір</h3><p>Атмосфера преміального шоуруму</p></div>
+    </div>
+  </section>
+
+
+  <!-- ══════════ 4 · PRODUCTS ══════════ -->
+  <section class="products" id="products">
+    <div class="sec-head">
+      <span class="tag">Флагмани</span>
+      <h2>Обрані продукти</h2>
+    </div>
+    <div class="products-track" id="productsTrack">
+      <!-- Завантажується з Firestore -->
+      <div class="p-card-loading" style="display:flex;align-items:center;justify-content:center;width:100%;padding:60px 0;">
+        <div style="width:36px;height:36px;border:2px solid rgba(255,79,163,.2);border-top-color:#FF4FA3;border-radius:50%;animation:spin .8s linear infinite;"></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="/products.html" class="btn btn-glass mag">Переглянути всі товари</a>
+    </div>
+  </section>
+
+
+  <!-- ══════════ 5 · CATEGORIES — 3D TILT ══════════ -->
+  <section class="categories" id="categories">
+    <div class="sec-head center">
+      <span class="tag">Асортимент</span>
+      <h2>Категорії товарів</h2>
+    </div>
+    <div class="cat-grid">
+      <a href="/products.html?category=face" class="cat-card tilt" data-from="left"><div class="cat-bg"><img src="images/sol1.jpg" alt="" loading="lazy"/></div><div class="cat-ov"></div><span class="cat-lbl">Обличчя<small>Догляд за шкірою</small></span></a>
+      <a href="/products.html?category=perfumes" class="cat-card tilt" data-from="right"><div class="cat-bg"><img src="images/mais.jpg" alt="" loading="lazy"/></div><div class="cat-ov"></div><span class="cat-lbl">Парфуми<small>Оригінальні аромати</small></span></a>
+      <a href="/products.html?category=body" class="cat-card tilt" data-from="left"><div class="cat-bg"><img src="images/ratedgreen.jpg" alt="" loading="lazy"/></div><div class="cat-ov"></div><span class="cat-lbl">Тіло<small>Шкіра та догляд</small></span></a>
+      <a href="/products.html?category=hair" class="cat-card tilt" data-from="right"><div class="cat-bg"><img src="images/bjornaxen.jpg" alt="" loading="lazy"/></div><div class="cat-ov"></div><span class="cat-lbl">Волосся<small>Маски та спреї</small></span></a>
+      <a href="/products.html?category=men" class="cat-card tilt" data-from="left"><div class="cat-bg"><img src="images/sol2.jpg" alt="" loading="lazy"/></div><div class="cat-ov"></div><span class="cat-lbl">Чоловіки<small>Догляд та гоління</small></span></a>
+    </div>
+  </section>
+
+
+  <!-- ══════════ 6 · SHOWCASE — PRODUCTS WITH DESCRIPTIONS ══════════ -->
+  <section class="showcase" id="gallery">
+    <div class="sec-head center">
+      <span class="tag">Галерея</span>
+      <h2>Наші продукти</h2>
+    </div>
+
+    <!-- item: image LEFT, text RIGHT -->
+    <div class="show-row" data-dir="left">
+      <div class="show-img cur-view"><img src="images/sol1.jpg" alt="Sol de Janeiro" loading="lazy"/></div>
+      <div class="show-info">
+        <span class="tag">Sol de Janeiro</span>
+        <h3>Brazilian Bum Bum Cream</h3>
+        <p>Культовий крем для тіла з кофеїном гуарани. Підтягує, зволожує та надає шкірі сяйво. Аромат фісташки та солоної карамелі — залежність з першого нанесення.</p>
+      </div>
+    </div>
+
+    <!-- item: text LEFT, image RIGHT -->
+    <div class="show-row reverse" data-dir="right">
+      <div class="show-img cur-view"><img src="images/medicube.jpg" alt="Medicube" loading="lazy"/></div>
+      <div class="show-info">
+        <span class="tag">Medicube</span>
+        <h3>Age-R Booster Pro</h3>
+        <p>6-в-1 бьюті-девайс: електропорація, мікроструми, LED-терапія, ультразвук. Салонні процедури вдома — для сяючої, пружної шкіри без зморшок.</p>
+      </div>
+    </div>
+
+    <!-- item: image LEFT, text RIGHT -->
+    <div class="show-row" data-dir="left">
+      <div class="show-img cur-view"><img src="images/ratedgreen.jpg" alt="Rated Green" loading="lazy"/></div>
+      <div class="show-info">
+        <span class="tag">Rated Green</span>
+        <h3>Real Mary Scalp Care</h3>
+        <p>Корейський догляд за шкірою голови з органічним розмарином холодного віджиму. Очищує, тонізує, зміцнює волосся без силіконів та парабенів.</p>
+      </div>
+    </div>
+
+    <!-- item: text LEFT, image RIGHT -->
+    <div class="show-row reverse" data-dir="right">
+      <div class="show-img cur-view"><img src="images/marvis.jpg" alt="Marvis" loading="lazy"/></div>
+      <div class="show-info">
+        <span class="tag">Marvis</span>
+        <h3>Whitening Mint</h3>
+        <p>Легендарна італійська зубна паста з Флоренції. Ніжне відбілювання, крижана м'ята та розкішна текстура — перетворює буденний ритуал на задоволення.</p>
+      </div>
+    </div>
+
+    <!-- item: image LEFT, text RIGHT -->
+    <div class="show-row" data-dir="left">
+      <div class="show-img cur-view"><img src="images/drceuracle.jpg" alt="Dr.Ceuracle" loading="lazy"/></div>
+      <div class="show-info">
+        <span class="tag">Dr.Ceuracle</span>
+        <h3>Pro Balance Biotics</h3>
+        <p>Зволожуючий крем з 6 видами пробіотиків. Відновлює бар'єр шкіри, балансує pH та забезпечує комфортне зволоження для чутливої шкіри.</p>
+      </div>
+    </div>
+
+    <!-- item: text LEFT, image RIGHT -->
+    <div class="show-row reverse" data-dir="right">
+      <div class="show-img cur-view"><img src="images/bjornaxen.jpg" alt="Björn Axén" loading="lazy"/></div>
+      <div class="show-info">
+        <span class="tag">Björn Axén</span>
+        <h3>Професійний догляд</h3>
+        <p>Шведський преміальний бренд для волосся. Термозахист, об'єм, відновлення — все в одному флаконі. Улюбленець стилістів з 1963 року.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════ 7 · INSTAGRAM ══════════ -->
+  <section class="instagram" id="instagram">
+    <div class="sec-head center">
+      <span class="tag">Instagram</span>
+      <h2>Підписуйся на <em>@beauty_black_room_</em></h2>
+    </div>
+    <div class="ig-grid">
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="ig-item cur-view"><img src="images/janzen.jpg" alt="" loading="lazy"/><div class="ig-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></a>
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="ig-item cur-view"><img src="images/neqi.jpg" alt="" loading="lazy"/><div class="ig-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></a>
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="ig-item cur-view"><img src="images/mais.jpg" alt="" loading="lazy"/><div class="ig-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></a>
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="ig-item cur-view"><img src="images/ratedgreen.jpg" alt="" loading="lazy"/><div class="ig-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></a>
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="ig-item cur-view"><img src="images/needly.jpg" alt="" loading="lazy"/><div class="ig-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></a>
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="ig-item cur-view"><img src="images/drceuracle.jpg" alt="" loading="lazy"/><div class="ig-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></a>
+    </div>
+    <div class="ig-cta"><a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="btn btn-outline mag">Дивитись всі фото</a></div>
+  </section>
+
+
+  <!-- ══════════ 8 · CTA ══════════ -->
+  <section class="cta" id="cta">
+    <div class="cta-in">
+      <span class="tag">Зв'язатись</span>
+      <h2 class="cta-h2"><span>Завітай.</span><br/><span>Або напиши.</span></h2>
+      <p>Ми в Мукачево — вул. Ілони Зріні 5/2</p>
+      <div class="cta-btns">
+        <a href="tel:+380995566006" class="btn btn-pink mag">Подзвонити</a>
+        <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="btn btn-glass mag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════ 9 · CONTACTS ══════════ -->
+  <section class="contacts" id="contacts">
+    <div class="c-info">
+      <span class="tag">Де нас знайти</span>
+      <h2>Контакти</h2>
+      <div class="c-list">
+        <div class="c-row"><div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="c-lbl">Адреса</div><div class="c-val">м. Мукачево, вул. Ілони Зріні 5/2</div></div></div>
+        <div class="c-row"><div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></div><div><div class="c-lbl">Телефон</div><div class="c-val"><a href="tel:+380995566006">+38 099 556 60 06</a></div></div></div>
+        <div class="c-row"><div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div><div><div class="c-lbl">Instagram</div><div class="c-val"><a href="https://www.instagram.com/beauty_black_room_" target="_blank">@beauty_black_room_</a></div></div></div>
+      </div>
+      <div class="c-btns"><a href="tel:+380995566006" class="btn btn-pink mag">Подзвонити</a><a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="btn btn-glass mag">Instagram</a></div>
+    </div>
+    <div class="map-box">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2650.4!2d22.7176!3d48.4412!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDI2JzI4LjMiTiAyMsKwNDMnMDMuNCJF!5e0!3m2!1suk!2sua!4v1234567890" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </section>
+
+
+  <!-- ══════════ 10 · FOOTER ══════════ -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <a href="#" class="logo">
+          <svg class="logo-svg sm" viewBox="0 0 100 100" fill="none">
+            <defs><linearGradient id="fLG" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop stop-color="#FF4FA3"/><stop offset="1" stop-color="#9D4FFF"/></linearGradient></defs>
+            <circle cx="50" cy="50" r="47" stroke="url(#fLG)" stroke-width="1.5"/>
+            <text x="50" y="57" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="28" font-weight="300" fill="white" letter-spacing="4">BR</text>
+          </svg>
+          <div><div class="logo-name">Beauty Black Room</div><div class="logo-city">Мукачево</div></div>
+        </a>
+        <p class="f-tag">Магазин оригінальної косметики, парфумерії та засобів догляду</p>
+        <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="f-ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg> @beauty_black_room_</a>
+      </div>
+      <div class="f-col"><h4>Навігація</h4><ul><li><a href="#products">Продукти</a></li><li><a href="#categories">Каталог</a></li><li><a href="#gallery">Галерея</a></li><li><a href="#contacts">Контакти</a></li></ul></div>
+      <div class="f-col"><h4>Контакти</h4><ul><li><a href="tel:+380995566006">+38 099 556 60 06</a></li><li><a href="#">Мукачево, Ілони Зріні 5/2</a></li><li><a href="https://www.instagram.com/beauty_black_room_" target="_blank">Instagram</a></li></ul></div>
+    </div>
+    <div class="footer-bar"><div class="f-copy">&copy; 2025 Beauty Black Room. Всі права захищені.</div><div class="f-copy">Оригінальна продукція · Мукачево</div></div>
+  </footer>
+
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header"><h3>Кошик</h3><button class="cart-close" id="cartClose">&times;</button></div>
+    <div class="cart-items" id="cartItems"><p class="cart-empty">Кошик порожній</p></div>
+    <div class="cart-footer" id="cartFooter" style="display:none"><div class="cart-total">Разом: <strong id="cartTotal">0 ₴</strong></div><a href="tel:+380995566006" class="btn btn-pink" style="width:100%;justify-content:center">Оформити замовлення</a></div>
+  </aside>
+
+
+  <!-- LIBS (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+  <!-- APP -->
+  <script src="js/main.js"></script>
+  <script src="js/three-bg.js"></script>
+  <script src="js/scroll.js"></script>
+  <script src="js/cart.js"></script>
+
+  <!-- FIRESTORE: завантаження товарів -->
+  <script type="module">
+    import { db, collection, getDocs, query, where, orderBy, limit }
+      from './js/firebase-client.js';
+
+    async function loadFeaturedProducts() {
+      const track = document.getElementById('productsTrack');
+      try {
+        // Завантажуємо 12 товарів (featured або просто перші)
+        let snap = await getDocs(query(
+          collection(db, 'products'),
+          where('featured', '==', true),
+          limit(12)
+        ));
+        // Якщо featured немає — беремо перші 12
+        if (snap.empty) {
+          snap = await getDocs(query(
+            collection(db, 'products'),
+            orderBy('createdAt', 'desc'),
+            limit(12)
+          ));
+        }
+        if (snap.empty) {
+          track.innerHTML = '<p style="color:rgba(255,255,255,.3);padding:40px;font-family:Jost,sans-serif;">Товари завантажуються...</p>';
+          return;
+        }
+        track.innerHTML = snap.docs.map(d => {
+          const p = d.data();
+          const img = p.images?.[0] || 'images/hero.jpg';
+          const name = p.name || '';
+          const brand = p.brand || '';
+          const shortName = name.replace(brand, '').replace('–', '').trim().slice(0, 30) || name.slice(0, 30);
+          return `
+            <div class="p-card" data-price="${p.price}" data-name="${name}" data-img="${img}" onclick="location.href='/product.html?id=${d.id}'">
+              <div class="p-card-img cur-view"><img src="${img}" alt="${name}" loading="lazy" onerror="this.src='images/hero.jpg'"/></div>
+              <div class="p-card-body">
+                ${brand ? `<span class="p-brand">${brand}</span>` : ''}
+                <h3>${shortName}</h3>
+                <span class="p-price">${p.price ? p.price.toLocaleString('uk-UA') + ' ₴' : ''}</span>
+                <button class="btn btn-pink btn-sm mag add-to-cart" data-id="${d.id}" data-name="${name}" data-price="${p.price}" data-img="${img}">В кошик</button>
+              </div>
+            </div>`;
+        }).join('');
+
+        // Підключаємо кнопки кошика
+        track.querySelectorAll('.add-to-cart').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.stopPropagation();
+            if (typeof addToCart === 'function') {
+              addToCart({ id: btn.dataset.id, name: btn.dataset.name, price: Number(btn.dataset.price), img: btn.dataset.img });
+            }
+          });
+        });
+
+      } catch (err) {
+        track.innerHTML = '<p style="color:rgba(255,255,255,.3);padding:40px;font-family:Jost,sans-serif;">Не вдалось завантажити товари</p>';
+        console.error(err);
+      }
+    }
+
+    loadFeaturedProducts();
+  </script>
+</body>
+</html>

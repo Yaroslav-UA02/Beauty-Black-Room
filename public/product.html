@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Товар — Beauty Black Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <style>
+    .product-page { padding: 120px 40px 80px; min-height: 100vh; max-width: 1200px; margin: 0 auto; }
+    .product-breadcrumb { font-family: 'Jost', sans-serif; font-size: .8rem; color: rgba(255,255,255,.35); margin-bottom: 40px; letter-spacing: 1px; }
+    .product-breadcrumb a { color: rgba(255,79,163,.7); text-decoration: none; }
+    .product-breadcrumb a:hover { color: #FF4FA3; }
+    .product-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .product-gallery { position: sticky; top: 100px; }
+    .product-main-img { aspect-ratio: 1; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,.07); margin-bottom: 16px; }
+    .product-main-img img { width: 100%; height: 100%; object-fit: cover; }
+    .product-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
+    .product-thumb { width: 72px; height: 72px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,.07); cursor: pointer; transition: border-color .3s; }
+    .product-thumb:hover, .product-thumb.active { border-color: #FF4FA3; }
+    .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .product-info { display: flex; flex-direction: column; gap: 20px; }
+    .product-category { font-family: 'Jost', sans-serif; font-size: .75rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,79,163,.8); }
+    .product-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: #fff; line-height: 1.1; }
+    .product-price { font-family: 'Jost', sans-serif; font-size: 2rem; font-weight: 600; color: #fff; }
+    .product-price span { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,.4); }
+    .product-desc { font-family: 'Inter', sans-serif; font-size: .9rem; color: rgba(255,255,255,.55); line-height: 1.7; }
+    .product-stock { display: flex; align-items: center; gap: 8px; font-family: 'Jost', sans-serif; font-size: .8rem; letter-spacing: 1px; }
+    .stock-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .stock-dot.in { background: #4fff9d; box-shadow: 0 0 8px rgba(79,255,157,.5); }
+    .stock-dot.out { background: rgba(255,255,255,.2); }
+    .product-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-cart-big { flex: 1; background: linear-gradient(135deg,#FF4FA3,#9D4FFF); border: none; color: #fff; padding: 16px 32px; border-radius: 50px; font-family: 'Jost', sans-serif; font-size: .9rem; letter-spacing: 1.5px; cursor: pointer; transition: opacity .3s; }
+    .btn-cart-big:hover { opacity: .85; }
+    .btn-call { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: #fff; padding: 16px 32px; border-radius: 50px; font-family: 'Jost', sans-serif; font-size: .9rem; text-decoration: none; letter-spacing: 1px; transition: border-color .3s; white-space: nowrap; }
+    .btn-call:hover { border-color: rgba(255,79,163,.4); }
+    .product-loading { text-align: center; padding: 100px 20px; }
+    .product-loading .spinner { width: 40px; height: 40px; border: 2px solid rgba(255,79,163,.2); border-top-color: #FF4FA3; border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .product-loading p { color: rgba(255,255,255,.4); font-family: 'Jost', sans-serif; }
+
+    @media (max-width: 900px) { .product-layout { grid-template-columns: 1fr; gap: 40px; } .product-gallery { position: static; } }
+    @media (max-width: 480px) { .product-page { padding: 90px 20px 60px; } }
+
+    .CATEGORY_LABELS { display: none; }
+  </style>
+</head>
+<body>
+  <div id="grain" aria-hidden="true"></div>
+  <div id="cur-dot"></div>
+  <div id="cur-ring"><span id="curLabel"></span></div>
+
+  <header class="header" id="header">
+    <a href="/" class="logo">
+      <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
+        <defs><linearGradient id="hLG" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop stop-color="#FF4FA3"/><stop offset=".5" stop-color="#CF4FE8"/><stop offset="1" stop-color="#9D4FFF"/></linearGradient></defs>
+        <circle cx="50" cy="50" r="47" stroke="url(#hLG)" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="40" stroke="rgba(255,79,163,.12)" stroke-width=".75"/>
+        <text x="50" y="57" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="28" font-weight="300" fill="white" letter-spacing="4">BR</text>
+        <line x1="26" y1="64" x2="74" y2="64" stroke="url(#hLG)" stroke-width=".8"/>
+        <text x="50" y="73" text-anchor="middle" font-family="Jost,system-ui,sans-serif" font-size="5" font-weight="500" fill="rgba(255,255,255,.45)" letter-spacing="3">BEAUTY · ROOM</text>
+        <circle cx="50" cy="4.5" r="1.8" fill="url(#hLG)"/><circle cx="50" cy="95.5" r="1.8" fill="url(#hLG)"/><circle cx="4.5" cy="50" r="1.8" fill="url(#hLG)"/><circle cx="95.5" cy="50" r="1.8" fill="url(#hLG)"/>
+      </svg>
+      <div>
+        <div class="logo-name">Beauty Black Room</div>
+        <div class="logo-city">Мукачево</div>
+      </div>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="/products.html">Продукти</a>
+      <a href="/#categories">Каталог</a>
+      <a href="/#gallery">Галерея</a>
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank">Instagram</a>
+      <a href="/#contacts">Контакти</a>
+    </nav>
+    <div class="nav-r">
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank" class="nav-ig mag" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <button class="cart-toggle mag" id="cartToggle" aria-label="Кошик">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="tel:+380995566006" class="btn btn-pink btn-sm mag">Подзвонити</a>
+      <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mob-menu" id="mobMenu">
+    <nav class="mob-nav">
+      <a href="/products.html">Продукти</a>
+      <a href="/#categories">Каталог</a>
+      <a href="/#gallery">Галерея</a>
+      <a href="https://www.instagram.com/beauty_black_room_" target="_blank">Instagram</a>
+      <a href="/#contacts">Контакти</a>
+    </nav>
+  </div>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-head">
+      <span class="cart-title">Кошик</span>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot">
+      <div class="cart-total-row"><span>Разом</span><span id="cartTotal">0 ₴</span></div>
+      <a href="tel:+380995566006" class="btn btn-pink" style="width:100%;text-align:center;display:block;">Замовити по телефону</a>
+    </div>
+  </aside>
+
+  <main class="product-page">
+    <div id="productContent">
+      <div class="product-loading">
+        <div class="spinner"></div>
+        <p>Завантаження товару...</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script type="module">
+    import { db, getDoc, doc } from './js/firebase-client.js';
+
+    const CATEGORY_LABELS = {
+      cosmetics: 'Косметика', perfumes: 'Парфуми',
+      care: 'Догляд', hair: 'Волосся', gifts: 'Подарунки'
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    if (!id) {
+      document.getElementById('productContent').innerHTML =
+        '<div style="text-align:center;padding:100px 20px;color:rgba(255,255,255,.4);font-family:Jost,sans-serif;">Товар не знайдено</div>';
+    } else {
+      loadProduct(id);
+    }
+
+    async function loadProduct(id) {
+      try {
+        const snap = await getDoc(doc(db, 'products', id));
+        if (!snap.exists()) throw new Error('Товар не знайдено');
+        const p = { id: snap.id, ...snap.data() };
+        document.title = `${p.name} — Beauty Black Room`;
+        renderProduct(p);
+      } catch (err) {
+        document.getElementById('productContent').innerHTML =
+          `<div style="text-align:center;padding:100px 20px;color:rgba(255,255,255,.4);font-family:Jost,sans-serif;">${err.message}</div>`;
+      }
+    }
+
+    function renderProduct(p) {
+      const images = p.images?.length ? p.images : ['images/hero.jpg'];
+      const cat = CATEGORY_LABELS[p.category] || p.category;
+      document.getElementById('productContent').innerHTML = `
+        <div class="product-breadcrumb">
+          <a href="/products.html">← Каталог</a> / ${p.name}
+        </div>
+        <div class="product-layout">
+          <div class="product-gallery">
+            <div class="product-main-img">
+              <img id="mainImg" src="${images[0]}" alt="${p.name}" />
+            </div>
+            ${images.length > 1 ? `<div class="product-thumbs">
+              ${images.map((img, i) => `<div class="product-thumb ${i === 0 ? 'active' : ''}" data-img="${img}">
+                <img src="${img}" alt="${p.name} фото ${i+1}" />
+              </div>`).join('')}
+            </div>` : ''}
+          </div>
+          <div class="product-info">
+            <div class="product-category">${cat}</div>
+            <h1 class="product-name">${p.name}</h1>
+            <div class="product-price">${p.price.toLocaleString('uk-UA')} <span>₴</span></div>
+            <div class="product-stock">
+              <div class="stock-dot ${p.inStock !== false ? 'in' : 'out'}"></div>
+              <span style="color:rgba(255,255,255,.5);font-family:'Jost',sans-serif;font-size:.8rem;letter-spacing:1px;">
+                ${p.inStock !== false ? 'В наявності' : 'Немає в наявності'}
+              </span>
+            </div>
+            ${p.description ? `<div class="product-desc">${p.description}</div>` : ''}
+            <div class="product-actions">
+              <button class="btn-cart-big" id="addToCartBtn">+ Додати до кошика</button>
+              <a href="tel:+380995566006" class="btn-call">Подзвонити</a>
+            </div>
+          </div>
+        </div>`;
+
+      // Thumb gallery
+      document.querySelectorAll('.product-thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+          thumb.classList.add('active');
+          document.getElementById('mainImg').src = thumb.dataset.img;
+        });
+      });
+
+      // Add to cart
+      document.getElementById('addToCartBtn').addEventListener('click', () => {
+        if (typeof addToCart === 'function') {
+          addToCart({ id: p.id, name: p.name, price: p.price, img: images[0] });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

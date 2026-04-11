@@ -1,0 +1,74 @@
+/* ══════════════════════════════════════════
+   BEAUTY BLACK ROOM — RESPONSIVE
+   ══════════════════════════════════════════ */
+
+/* ── TABLET ── */
+@media(max-width:1200px){
+  .header{width:calc(100% - 32px);top:42px}
+  .nav-links{display:none}
+  .burger{display:flex}
+  .benefits{padding:80px 40px}
+  .benefits-grid{grid-template-columns:repeat(3,1fr)}
+  .products .sec-head{padding:0 40px}
+  .products-track{padding:0 40px 40px}
+  .categories{padding:100px 40px}
+  .cat-grid{grid-template-columns:repeat(3,1fr)}
+  .showcase{padding:100px 40px}
+  .show-row{gap:48px;margin-bottom:100px}
+  .instagram{padding:100px 40px}
+  .contacts{padding:100px 40px;grid-template-columns:1fr;gap:48px}
+  .map-box{height:300px}
+  .footer{padding:48px 40px 20px}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  body{cursor:auto}
+  #cur-dot,#cur-ring{display:none}
+  .btn{cursor:auto}
+  .promo-banner{height:28px}
+  .promo-track span{font-size:.48rem}
+  .header{width:calc(100% - 24px);top:36px;padding:0 16px}
+  .nav-r .btn-sm{display:none}
+  .hero{padding:100px 20px 80px}
+  .hero-layout{grid-template-columns:1fr;gap:24px;text-align:center}
+  .hero-left,.hero-right{text-align:center}
+  .hero-h1{font-size:clamp(2.4rem,10vw,4rem)}
+  .hero-giraffe{width:min(60vw,260px);margin:0 auto}
+  .hero-sub{margin:0 auto}
+  .hero-bottom{position:relative;bottom:auto;left:auto;right:auto;flex-direction:column;gap:16px;margin-top:32px;align-items:center}
+  .hero-btns{justify-content:center}
+  .benefits{padding:60px 20px}
+  .benefits-grid{grid-template-columns:1fr 1fr}
+  .b-item{padding:28px 20px}
+  .products .sec-head{padding:0 20px}
+  .products-track{padding:0 20px 32px;gap:14px}
+  .p-card{flex:0 0 240px}
+  .categories{padding:80px 20px}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+  .showcase{padding:80px 20px}
+  .show-row,.show-row.reverse{grid-template-columns:1fr;gap:28px;margin-bottom:80px;direction:ltr}
+  .show-img{aspect-ratio:1}
+  .instagram{padding:80px 20px}
+  .ig-grid{grid-template-columns:repeat(2,1fr)}
+  .cta-in{padding:60px 20px}
+  .contacts{padding:80px 20px}
+  .map-box{height:240px}
+  .footer{padding:40px 20px 16px}
+  .footer-top{grid-template-columns:1fr;gap:24px}
+  .footer-bar{flex-direction:column;text-align:center}
+  .cart-sidebar{width:100%;right:-100%}
+}
+
+/* ── SMALL ── */
+@media(max-width:480px){
+  .hero-h1{font-size:clamp(2rem,11vw,3rem)}
+  .benefits-grid{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:1fr 1fr}
+  .p-card{flex:0 0 220px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
