@@ -1,6 +1,6 @@
 import { db, getDoc, doc, collection, getDocs, query, where, limit }
-      from './js/firebase-client.js';
-    import { CATEGORY_LABELS } from './js/constants.js';
+      from './firebase-client.js';
+    import { CATEGORY_LABELS } from './constants.js';
 
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');

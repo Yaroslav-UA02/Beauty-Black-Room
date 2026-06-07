@@ -3,11 +3,11 @@ import {
       collection, getDocs, doc, getDoc, orderBy, query, limit, where,
       signInWithEmailAndPassword, signOut, onAuthStateChanged,
       ref, uploadBytes, getDownloadURL
-    } from './js/firebase-client.js';
+    } from './firebase-client.js';
     import {
       addDoc, updateDoc, deleteDoc, serverTimestamp
     } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
-    import { CATEGORY_LABELS } from './js/constants.js';
+    import { CATEGORY_LABELS } from './constants.js';
 
     let products = [];
     let categories = [];

@@ -1,6 +1,6 @@
 import { db, collection, getDocs, query, where, limit }
-      from './js/firebase-client.js';
-    import { CATEGORY_LABELS } from './js/constants.js';
+      from './firebase-client.js';
+    import { CATEGORY_LABELS } from './constants.js';
 
     let allProducts = [];
     let activeCategory = new URLSearchParams(window.location.search).get('category') || '';
