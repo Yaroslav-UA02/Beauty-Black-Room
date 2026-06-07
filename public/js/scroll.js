@@ -9,29 +9,24 @@ function initScrollAnimations() {
   const ease = 'power3.out';
 
   /* ═══════ HERO ═══════ */
-  /* left text */
-  gsap.from('.hero-left .h1-word', {
-    x: -80, opacity: 0,
-    duration: 1.1, ease: 'power4.out',
-    stagger: .15, delay: .2
-  });
   gsap.from('.hero-tag', { opacity: 0, y: 16, duration: .6, delay: .1 });
 
-  /* giraffe: scale + rotate in */
-  gsap.from('.hero-giraffe', {
-    scale: .5, opacity: 0, rotation: -10,
-    duration: 1.4, ease: 'power4.out', delay: .3
-  });
-
-  /* right text */
-  gsap.from('.hero-right .h1-word', {
-    x: 80, opacity: 0,
+  gsap.from('.hero-left .h1-word', {
+    y: 80, opacity: 0,
     duration: 1.1, ease: 'power4.out',
-    stagger: .15, delay: .5
+    stagger: .12, delay: .2
   });
-  gsap.from('#heroSub', { opacity: 0, y: 16, duration: .7, delay: .9 });
 
-  /* bottom */
+  gsap.from('#heroSub', { opacity: 0, y: 20, duration: .7, delay: .8 });
+  gsap.from('#heroBtnsInline', { opacity: 0, y: 16, duration: .6, delay: 1.0 });
+
+  /* giraffe: scale + float in from right */
+  gsap.from('.hero-giraffe', {
+    x: 80, scale: .7, opacity: 0,
+    duration: 1.4, ease: 'power4.out', delay: .4
+  });
+
+  /* bottom bar */
   gsap.from('.hero-bottom', { opacity: 0, y: 20, duration: .7, delay: 1.1 });
 
   /* ═══════ MARQUEE ═══════ */

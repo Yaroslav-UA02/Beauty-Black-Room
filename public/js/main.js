@@ -40,14 +40,23 @@ document.addEventListener('mousemove', e => {
   requestAnimationFrame(raf);
 })();
 
-/* cursor states */
-document.querySelectorAll('a, button, .cat-card, .ig-item, .mq-item, .p-card').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cur-hover'));
-  el.addEventListener('mouseleave', () => { document.body.classList.remove('cur-hover'); document.body.classList.remove('cur-view'); curLabel.textContent = ''; });
+/* cursor states — event delegation covers dynamically added elements */
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('.cur-view')) {
+    document.body.classList.remove('cur-hover');
+    document.body.classList.add('cur-view');
+    curLabel.textContent = 'VIEW';
+  } else if (e.target.closest('a, button, .cat-card, .ig-item, .p-card')) {
+    document.body.classList.remove('cur-view');
+    document.body.classList.add('cur-hover');
+    curLabel.textContent = '';
+  }
 });
-document.querySelectorAll('.cur-view').forEach(el => {
-  el.addEventListener('mouseenter', () => { document.body.classList.remove('cur-hover'); document.body.classList.add('cur-view'); curLabel.textContent = 'VIEW'; });
-  el.addEventListener('mouseleave', () => { document.body.classList.remove('cur-view'); curLabel.textContent = ''; });
+document.addEventListener('mouseout', e => {
+  if (!e.relatedTarget?.closest('a, button, .cat-card, .ig-item, .p-card, .cur-view')) {
+    document.body.classList.remove('cur-hover', 'cur-view');
+    curLabel.textContent = '';
+  }
 });
 
 /* ── MAGNETIC BUTTONS ── */

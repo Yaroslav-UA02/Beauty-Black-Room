@@ -68,12 +68,22 @@
 })();
 
 
-/* ═══════ 2. GIRAFFE PARALLAX (mouse follow) ═══════ */
+/* ═══════ 2. GIRAFFE FLOAT + PARALLAX ═══════ */
 const giraffeEl = document.getElementById('heroGiraffe');
 if (giraffeEl) {
+  giraffeEl.style.animation = 'none';
+  let targetCx = 0, targetCy = 0, cx = 0, cy = 0;
+
   document.addEventListener('mousemove', e => {
-    const cx = (e.clientX / innerWidth - .5) * 2;
-    const cy = (e.clientY / innerHeight - .5) * 2;
-    giraffeEl.style.transform = `translateY(${Math.sin(Date.now()*.001)*16}px) translate(${cx*12}px,${cy*8}px)`;
+    targetCx = (e.clientX / innerWidth - .5) * 2;
+    targetCy = (e.clientY / innerHeight - .5) * 2;
   });
+
+  (function animGiraffe() {
+    requestAnimationFrame(animGiraffe);
+    cx += (targetCx - cx) * .05;
+    cy += (targetCy - cy) * .05;
+    const floatY = Math.sin(Date.now() * .001) * 16;
+    giraffeEl.style.transform = `translateY(${floatY + cy * 8}px) translateX(${cx * 12}px)`;
+  })();
 }
